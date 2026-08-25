@@ -11,6 +11,12 @@
       "sourceType": "autoskills-registry",
       "computedHash": "c124390cc3441844903ada94cb5820b23d922f2d0ad34e01e029e410197c8a32"
     },
+    "design-taste-frontend": {
+      "source": "leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "899b84384f74f540ea5284d9b2e9234e050998b42eacc805410b518d4226c0b3"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "autoskills-registry",
@@ -55,6 +61,12 @@
       "source": "greensock/gsap-skills",
       "sourceType": "autoskills-registry",
       "computedHash": "4bc9e220b816f74547d770f73a2878e86df035f42e445c1e98875dd9793fe927"
+    },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "661f7017513d750822e8c51fd6dad0fef47abf5c234f85df8bcbfbb846e253b0"
     },
     "next-best-practices": {
       "source": "vercel-labs/next-skills",
