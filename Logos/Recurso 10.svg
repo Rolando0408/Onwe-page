@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2388.09 1471.78">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Degradado_sin_nombre_28);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        mask: url(#mask);
+      }
+
+      .cls-4 {
+        fill: #00ffb6;
+      }
+
+      .cls-5 {
+        fill: url(#Degradado_sin_nombre_110);
+      }
+
+      .cls-6 {
+        filter: url(#luminosity-noclip);
+      }
+    </style>
+    <filter id="luminosity-noclip" x="-108.77" y="-10.43" width="2023" height="1482.21" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-color="#fff" result="bg"/>
+      <feBlend in="SourceGraphic" in2="bg"/>
+    </filter>
+    <linearGradient id="Degradado_sin_nombre_28" data-name="Degradado sin nombre 28" x1="1816.29" y1="804.2" x2="1816.29" y2="1461.68" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".79" stop-color="#000"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_110" data-name="Degradado sin nombre 110" x1="674.76" y1="-16.4" x2="1034.2" y2="659.6" gradientUnits="userSpaceOnUse">
+      <stop offset=".22" stop-color="#fff"/>
+      <stop offset=".3" stop-color="#cbcbcb"/>
+      <stop offset=".42" stop-color="#8e8e8e"/>
+      <stop offset=".53" stop-color="#5b5b5b"/>
+      <stop offset=".63" stop-color="#333"/>
+      <stop offset=".72" stop-color="#171717"/>
+      <stop offset=".8" stop-color="#060606"/>
+      <stop offset=".86" stop-color="#000"/>
+    </linearGradient>
+    <mask id="mask" x="-108.77" y="-10.43" width="2023" height="1482.21" maskUnits="userSpaceOnUse">
+      <g class="cls-6">
+        <g>
+          <rect class="cls-1" x="1718.34" y="784.97" width="195.89" height="686.81"/>
+          <path class="cls-5" d="M581.02,237.27l14.4-247.7c44.09,8.15,227.38,44.79,299.38,93.41,86.9,58.7,128.23,129.43,157.48,180.86,61.22,107.63,49.1,281.28,52.95,350.75-76.7-1.78-132.84,6.82-209.54,5.04,4.35-26.71,10.57-159.2-13.34-221.19-10.04-26.02-32.38-83.07-90.73-125.65-59.95-43.74-149.48-31.29-210.6-35.52Z"/>
+        </g>
+      </g>
+    </mask>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <g class="cls-3">
+        <path class="cls-4" d="M1481.53,590.87c-20.54,0-112.96,3.2-181.44,78.06-19.32,21.12-33.77,44.72-58.5,106.48-55.44,138.46-51.49,191.35-86.31,287.88-16.4,45.47-52.49,143.15-135.42,230.63-85.78,90.49-178.72,124.85-227.68,142.3-35.85,12.78-113.32,39.57-214.29,35.05-21.35-.96-177.29-10.14-320.32-123.69C4.43,1146.6,0,783.97,0,739.56,0,455.43,119.78,208.45,327.7,85.01,368.2,60.96,485.81-9.79,645.53,1.14c41.65,2.85,226.25,15.48,349.49,176.16,108.67,141.67,97.56,384.35,93.64,422.17-59.59,2.09-119.17,4.18-178.76,6.27,1.09-15.59,7.15-234.47-94.24-319.99-71.29-60.13-154.72-59.56-181.02-59.38-84.49.58-145.13,37.07-169.78,52.34-150.38,93.13-215.15,297.54-213.73,460.85.25,29.22,7.29,332.96,214.33,449.04,51.45,28.85,111.67,44.92,180.07,44.92,87.26,0,173.69-28.14,241.81-89.3,31.89-28.63,58.95-63.41,80.65-101.82,28.58-50.6,43.48-113.94,62.86-169.57,17.3-49.68,35.33-99.25,46.73-150.68,10.37-46.78,26.4-92.36,49.78-133.23,38.17-66.75,95.11-116.55,161.64-145.39,61.01-26.44,127.26-35.86,192.53-35.86,252.62,0,421.13,143.53,421.13,483.65v568.64h-177.04v-559.18c0-217.29-97.97-309.9-244.08-309.9Z"/>
+      </g>
+      <path class="cls-2" d="M2205.86,1277.87c-100.64,0-182.22,81.58-182.22,182.23h364.45c0-100.64-81.58-182.23-182.23-182.23Z"/>
+    </g>
+  </g>
+</svg>

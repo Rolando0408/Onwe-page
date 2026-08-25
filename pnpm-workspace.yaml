@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - unrs-resolver
+minimumReleaseAgeExclude:
+  - lucide-react
+allowBuilds:
+  unrs-resolver: true
