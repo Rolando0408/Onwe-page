@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "cases": "Casos de Éxito",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "cta": "Agendar llamada"
+  },
+  "hero": {
+    "badge": "Innovación Digital & Desarrollo a Medida",
+    "title_part1": "Digitaliza tu negocio.",
+    "title_highlight": "Escala sin límites.",
+    "title_part2": "Construimos el futuro de tu empresa.",
+    "subtitle": "Creamos aplicaciones web de alto rendimiento, sistemas a medida y arquitecturas escalables diseñadas para multiplicar tus resultados y transformar procesos.",
+    "cta_primary": "Contáctanos",
+    "cta_secondary": "Ver Soluciones",
+    "trusted_by": "Tecnología de vanguardia para empresas en crecimiento",
+    "card_status": "Sistema en Vivo",
+    "card_metric": "+350% Eficiencia Operativa",
+    "card_tag": "Match Perfecto",
+    "card_role": "Arquitectura Cloud & Web App",
+    "card_score": "Compatibilidad: 99.4%"
+  }
+}

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "../";
+
 :root {
   --background: #031c17;
   --foreground: #f8fafc;
@@ -12,16 +14,37 @@
   --color-onwe-neon: #00ff79;
   --color-onwe-emerald: #08af83;
   --color-onwe-mint: #c2ffdb;
-  --font-sans: var(--font-poppins);
-  --font-symora: var(--font-symora);
+  --font-sans: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  --font-symora: var(--font-symora), serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #031c17;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: #031c17;
+  color: #f8fafc;
   font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-symora);
+}
+
+.grainient-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
 }

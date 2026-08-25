@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "cases": "Case Studies",
+    "about": "About Us",
+    "contact": "Contact",
+    "cta": "Book a Call"
+  },
+  "hero": {
+    "badge": "Digital Innovation & Custom Systems",
+    "title_part1": "Digitize your business.",
+    "title_highlight": "Scale without limits.",
+    "title_part2": "We build the future of your company.",
+    "subtitle": "We craft high-performance web applications, tailor-made systems, and scalable architectures designed to multiply your growth and streamline workflows.",
+    "cta_primary": "Contact Us",
+    "cta_secondary": "Explore Solutions",
+    "trusted_by": "Cutting-edge technology trusted by forward-thinking teams",
+    "card_status": "Live System",
+    "card_metric": "+350% Operational Efficiency",
+    "card_tag": "Direct Match",
+    "card_role": "Cloud Architecture & Web App",
+    "card_score": "Compatibility: 99.4%"
+  }
+}
