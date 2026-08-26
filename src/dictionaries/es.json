@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Inicio",
+    "why": "¿Por qué Onwe?",
     "services": "Servicios",
-    "cases": "Casos de Éxito",
-    "about": "Nosotros",
+    "team": "Equipo",
     "contact": "Contacto",
-    "cta": "Agendar llamada"
+    "cta": "Contacto"
   },
   "hero": {
     "badge": "Innovación Digital & Desarrollo a Medida",

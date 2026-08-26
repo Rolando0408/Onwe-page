@@ -118,12 +118,12 @@ export default function Hero({ dict }: HeroProps) {
         <div className="lg:col-span-7 flex flex-col items-start text-left">
 
           {/* Main Title (H1) with High-Impact Typography */}
-          <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+          <h1 className="text-3xl xs:text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6 break-words">
             <span className="hero-title-line block">{dict.hero.title_part1}</span>
             <span className="hero-title-line block text-transparent bg-clip-text bg-gradient-to-r from-[#00ff79] via-[#3aff9e] to-[#c2ffdb] filter drop-shadow-[0_0_30px_rgba(0,255,121,0.35)]">
               {dict.hero.title_highlight}
             </span>
-            <span className="hero-title-line block text-slate-100 text-3xl sm:text-5xl xl:text-6xl font-bold mt-1">
+            <span className="hero-title-line block text-slate-100 text-2xl xs:text-3xl sm:text-5xl xl:text-6xl font-bold mt-1">
               {dict.hero.title_part2}
             </span>
           </h1>
@@ -138,7 +138,7 @@ export default function Hero({ dict }: HeroProps) {
             <Magnet magnetStrength={3} padding={50}>
               <Link
                 href="#contact"
-                className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-white bg-emerald-600 rounded-full shadow-[0_0_20px_rgba(0,255,121,0.3)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] hover:bg-emerald-500 transition-all duration-300 active:scale-95"
+                className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-white bg-emerald-600 rounded-full shadow-[0_0_20px_rgba(0,255,121,0.3)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-all duration-300 active:scale-95"
               >
                 {/* Shine Sweep Effect */}
                 <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
@@ -150,7 +150,7 @@ export default function Hero({ dict }: HeroProps) {
 
             <Link
               href="#services"
-              className="inline-flex items-center gap-2 px-7 py-4 text-base font-semibold text-slate-200 bg-emerald-950/50 border border-emerald-500/25 rounded-full hover:bg-emerald-900/40 hover:border-emerald-500/50 hover:text-white backdrop-blur-md transition-all duration-200"
+              className="inline-flex items-center gap-2 px-7 py-4 text-base font-semibold text-slate-200 bg-emerald-950/50 border border-emerald-500/25 rounded-full hover:bg-emerald-900/40 hover:border-emerald-500/50 hover:text-white focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-black backdrop-blur-md transition-all duration-200"
             >
               <span>{dict.hero.cta_secondary}</span>
             </Link>

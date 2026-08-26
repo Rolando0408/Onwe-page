@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Home",
+    "why": "Why Onwe?",
     "services": "Services",
-    "cases": "Case Studies",
-    "about": "About Us",
+    "team": "Team",
     "contact": "Contact",
-    "cta": "Book a Call"
+    "cta": "Contact"
   },
   "hero": {
     "badge": "Digital Innovation & Custom Systems",

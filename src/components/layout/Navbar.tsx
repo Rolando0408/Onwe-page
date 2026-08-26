@@ -18,9 +18,9 @@ interface NavbarProps {
   dict: {
     nav: {
       home: string;
+      why?: string;
       services: string;
-      cases: string;
-      about: string;
+      team?: string;
       contact: string;
       cta: string;
     };
@@ -76,10 +76,9 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
   const navLinks = [
     { label: dict.nav.home, href: `#hero` },
+    { label: dict.nav.why || '¿Por qué Onwe?', href: `#why-onwe` },
     { label: dict.nav.services, href: `#services` },
-    { label: dict.nav.cases, href: `#cases` },
-    { label: dict.nav.about, href: `#about` },
-    { label: dict.nav.contact, href: `#contact` },
+    { label: dict.nav.team || 'Equipo', href: `#team` },
   ];
 
   return (
@@ -98,7 +97,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
         }}
       >
         {/* Brand Logo */}
-        <Link href={`/${lang}`} className="flex items-center gap-2 group shrink-0">
+        <Link href={`/${lang}`} className="flex items-center gap-2 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-lg">
           <div className="relative flex items-center transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/logos/onwe-logo.png"
@@ -117,7 +116,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             <Link
               key={link.label}
               href={link.href}
-              className="px-4 py-1.5 text-sm font-medium text-slate-200 hover:text-white rounded-full transition-all duration-200 hover:bg-emerald-500/15 hover:shadow-[0_0_12px_rgba(0,255,121,0.2)]"
+              className="px-4 py-1.5 text-sm font-medium text-slate-200 hover:text-white rounded-full transition-all duration-200 hover:bg-emerald-500/15 hover:shadow-[0_0_12px_rgba(0,255,121,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79]"
             >
               {link.label}
             </Link>
@@ -129,11 +128,18 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           <button
             onClick={toggleLanguage}
             aria-label="Change language"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,121,0.1)]"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 hover:border-emerald-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,121,0.1)]"
           >
             <Globe className="w-3.5 h-3.5" />
             <span>{lang === 'es' ? 'EN' : 'ES'}</span>
           </button>
+
+          <Link
+            href="#contact"
+            className="px-4 py-1.5 text-xs font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] hover:shadow-[0_0_15px_rgba(0,255,121,0.4)] rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            {dict.nav.contact}
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}

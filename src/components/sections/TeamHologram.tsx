@@ -99,7 +99,7 @@ export default function TeamHologram({ dict }: TeamHologramProps) {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full py-24 lg:py-40 bg-transparent z-10">
+    <section id="team" ref={sectionRef} className="relative w-full py-24 lg:py-40 bg-transparent z-10">
       <div className="container mx-auto px-6 lg:px-12">
         
         {/* Header */}

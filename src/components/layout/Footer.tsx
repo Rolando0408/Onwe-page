@@ -58,13 +58,13 @@ export default function Footer({ dict }: FooterProps) {
 
             {/* Social Links */}
             <div className="flex items-center gap-6">
-              <a href="mailto:hello@onwe.com" className="text-slate-400 hover:text-[#00ff79] transition-colors" aria-label="Email">
+              <a href="mailto:hello@onwe.com" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Email">
                 <Mail className="w-6 h-6" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#00ff79] transition-colors" aria-label="Instagram">
+              <a href="#" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Instagram">
                 <InstagramIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#00ff79] transition-colors" aria-label="X (Twitter)">
+              <a href="#" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="X (Twitter)">
                 <XIcon className="w-5 h-5" />
               </a>
             </div>
@@ -72,13 +72,13 @@ export default function Footer({ dict }: FooterProps) {
 
           {/* Bottom Section (Legal) */}
           <div className="mt-20 pt-8 border-t border-white/5 flex flex-wrap gap-6 sm:gap-10 text-sm text-slate-500">
-            <Link href="#" className="hover:text-slate-300 transition-colors">
+            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
               {dict?.footer?.legal?.imprint || 'Aviso Legal'}
             </Link>
-            <Link href="#" className="hover:text-slate-300 transition-colors">
+            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
               {dict?.footer?.legal?.privacy || 'Privacidad'}
             </Link>
-            <Link href="#" className="hover:text-slate-300 transition-colors">
+            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
               {dict?.footer?.legal?.terms || 'Términos y Condiciones'}
             </Link>
           </div>

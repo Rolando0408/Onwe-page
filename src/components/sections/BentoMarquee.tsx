@@ -54,6 +54,7 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
 
   return (
     <section 
+      id="services"
       ref={containerRef} 
       className="relative w-full py-24 lg:py-20 overflow-hidden bg-transparent"
       style={{ perspective: '1500px' }}

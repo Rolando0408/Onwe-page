@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, CheckCircle, Loader2 } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -34,6 +34,22 @@ export default function ContactSection({ dict }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting || isSubmitted) return;
+
+    setIsSubmitting(true);
+
+    // Simulate server response
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 1200);
+  };
 
   useGSAP(() => {
     // Reveal left column
@@ -70,7 +86,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full py-24 lg:py-32 overflow-hidden">
+    <section id="contact" ref={sectionRef} className="relative w-full py-24 lg:py-32 overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           
@@ -106,7 +122,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
               {/* Subtle top glow */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#00ff79]/50 to-transparent" />
               
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name Input */}
                   <div className="space-y-2">
@@ -115,7 +131,9 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                     </label>
                     <input 
                       type="text" 
-                      className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 transition-all shadow-inner"
+                      required
+                      disabled={isSubmitted || isSubmitting}
+                      className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
                       placeholder="John Doe"
                     />
                   </div>
@@ -126,7 +144,8 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                     </label>
                     <input 
                       type="text" 
-                      className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 transition-all shadow-inner"
+                      disabled={isSubmitted || isSubmitting}
+                      className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
                       placeholder="Acme Corp"
                     />
                   </div>
@@ -139,7 +158,9 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                   </label>
                   <input 
                     type="email" 
-                    className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 transition-all shadow-inner"
+                    required
+                    disabled={isSubmitted || isSubmitting}
+                    className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -151,21 +172,38 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                   </label>
                   <textarea 
                     rows={4}
-                    className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 transition-all resize-none shadow-inner"
+                    required
+                    disabled={isSubmitted || isSubmitting}
+                    className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all resize-none shadow-inner disabled:opacity-50"
                     placeholder="..."
                   />
                 </div>
 
-                {/* Submit Button */}
-                <button 
-                  type="submit"
-                  className="relative group overflow-hidden w-full flex items-center justify-center gap-2.5 py-4 text-base font-bold text-white bg-emerald-600 rounded-xl shadow-[0_0_20px_rgba(0,255,121,0.3)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] hover:bg-emerald-500 transition-all duration-300 active:scale-95 mt-4"
-                >
-                  {/* Shine Sweep Effect */}
-                  <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
-                  
-                  <span className="relative z-10">{dict?.contact?.form?.submit || 'Enviar Mensaje'}</span>
-                </button>
+                {/* Submit Button & Feedback */}
+                {isSubmitted ? (
+                  <div className="w-full py-4 rounded-xl bg-[#00ff79]/15 border border-[#00ff79]/40 text-[#00ff79] font-bold text-center flex items-center justify-center gap-2 animate-fadeIn">
+                    <CheckCircle className="w-5 h-5 text-[#00ff79]" />
+                    <span>¡Mensaje enviado con éxito! Te contactaremos pronto.</span>
+                  </div>
+                ) : (
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="relative group overflow-hidden w-full flex items-center justify-center gap-2.5 py-4 text-base font-bold text-white bg-emerald-600 rounded-xl shadow-[0_0_20px_rgba(0,255,121,0.3)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-all duration-300 active:scale-95 disabled:opacity-75 mt-4"
+                  >
+                    {/* Shine Sweep Effect */}
+                    <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
+                    
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="relative z-10 w-5 h-5 animate-spin text-white" />
+                        <span className="relative z-10">Enviando...</span>
+                      </>
+                    ) : (
+                      <span className="relative z-10">{dict?.contact?.form?.submit || 'Enviar Mensaje'}</span>
+                    )}
+                  </button>
+                )}
               </form>
             </div>
           </div>
