@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-26T13:53:30Z",
+  "title": "Design System: Onwe",
+  "extensions": {
+    "colorMeta": {
+      "neutral-bg": { "role": "neutral", "displayName": "Abismo Tecnológico", "canonical": "#031c17", "tonalRamp": ["#010907", "#021310", "#031c17", "#042821", "#05342a", "#07483a", "#095f4c", "#0b775f"] },
+      "primary": { "role": "primary", "displayName": "Verde Matriz", "canonical": "#00ff79", "tonalRamp": ["#003318", "#006630", "#009949", "#00cc61", "#00ff79", "#33ff94", "#66ffaf", "#99ffca"] },
+      "secondary": { "role": "secondary", "displayName": "Jade Futurista", "canonical": "#08af83", "tonalRamp": ["#02231a", "#034634", "#05694f", "#068c69", "#08af83", "#39bf9c", "#6ad0b5", "#9be0ce"] },
+      "tertiary": { "role": "tertiary", "displayName": "Cristal Líquido", "canonical": "#c2ffdb", "tonalRamp": ["#1d402b", "#3a8056", "#57bf81", "#84d9a8", "#c2ffdb", "#ceffe2", "#dbffe9", "#e8fff0"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines and section titles." },
+      "body": { "displayName": "Body", "purpose": "Descriptions, reading content." }
+    }
+  },
+  "components": [
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "card-glass",
+      "description": "Panel translúcido de cristal templado usado en los componentes principales de Onwe.",
+      "html": "<div class=\"ds-card-glass\"><div class=\"ds-card-glass-icon\">✦</div><h3 class=\"ds-card-glass-title\">Circuito Central</h3><p class=\"ds-card-glass-desc\">Descripción del funcionamiento tecnológico.</p></div>",
+      "css": ".ds-card-glass { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 32px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); transition: all 0.5s ease; cursor: default; } .ds-card-glass:hover { border-color: rgba(0, 255, 121, 0.6); box-shadow: 0 0 40px rgba(0, 255, 121, 0.2); transform: translateY(-8px); } .ds-card-glass-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 255, 121, 0.2); color: #00ff79; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; } .ds-card-glass-title { color: #fff; font-family: 'Symora', serif; font-size: 24px; font-weight: bold; margin-bottom: 16px; } .ds-card-glass-desc { color: #cbd5e1; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.6; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El Pulso Tecnológico",
+    "overview": "Inspirado en la onda senoidal que dio origen a la marca, este sistema visual moderniza ese concepto a través de la tecnología. La atmósfera es audaz, inmersiva y vanguardista, apoyándose fuertemente en un fondo profundo salpicado por ruido visual (grain) y destellos de neón puro. La energía fluye a través de curvas orgánicas y animaciones CSS optimizadas, creando la sensación de que el sitio está vivo y procesando datos.",
+    "keyCharacteristics": [
+      "Audaz e inmersivo: Fondos casi negros (Abismo) con contrastes extremos de luz (Neón).",
+      "En movimiento: Animaciones suaves a 60FPS y scroll-driven animations que guían la mirada.",
+      "Formas orgánicas: Curvas sinuosas, circuitos y píldoras flotantes, huyendo de las cuadrículas rígidas.",
+      "Glassmorphism: Capas translúcidas que permiten que el fondo respire a través de la interfaz."
+    ],
+    "rules": [
+      {
+        "name": "The Neon Rule",
+        "body": "El Verde Matriz debe ser usado con moderación absoluta. Solo debe iluminar elementos interactivos o palabras clave. Si todo brilla, nada destaca.",
+        "section": "colors"
+      },
+      {
+        "name": "The Glass Depth Rule",
+        "body": "La profundidad se mide por cuán borroso es el fondo. Los elementos más altos en la jerarquía Z tienen más backdrop-blur y bordes semitransparentes que refractan la luz detrás de ellos.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar siempre fondos translúcidos (backdrop-blur-md a xl) para componentes flotantes.",
+      "Do usar clip-path y animaciones nativas para transiciones de estado complejas en texto."
+    ],
+    "donts": [
+      "Don't usar gris sólido para fondos secundarios. Siempre usa transparencias sobre el Abismo Tecnológico.",
+      "Don't usar líneas rectas cruzadas de forma rígida; prefiere curvas o S-curves orgánicas para guiar la vista."
+    ]
+  }
+}

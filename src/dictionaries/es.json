@@ -67,6 +67,23 @@
       }
     ]
   },
+  "bentoMarquee": {
+    "title": "El Ecosistema Onwe",
+    "subtitle": "Métricas, analíticas y operaciones bajo una sola presencia visual, donde el diseño acelerado y la tecnología se vuelven uno."
+  },
+  "teamHologram": {
+    "title": "Nuestra Mente Maestra",
+    "subtitle": "El talento humano detrás del código. Un equipo interdisciplinario orquestando el futuro del B2B SaaS.",
+    "roles": {
+      "ceo": "CEO & Founder",
+      "cto": "Co-Founder & CTO",
+      "engineering": "Head of Engineering",
+      "design": "Lead Designer",
+      "product": "Product Strategist",
+      "data": "Data Architect",
+      "growth": "Growth Lead"
+    }
+  },
   "contact": {
     "title": "Hagamos que suceda.",
     "subtitle": "Déjanos tus datos y nos pondremos en contacto contigo en menos de 24 horas para discutir tu proyecto.",
@@ -76,6 +93,15 @@
       "email": "Correo electrónico",
       "message": "Cuéntanos sobre tu requerimiento...",
       "submit": "Enviar Mensaje"
+    }
+  },
+  "footer": {
+    "address_l1": "Av. Principal de Las Mercedes",
+    "address_l2": "Caracas, Venezuela",
+    "legal": {
+      "imprint": "Aviso Legal",
+      "privacy": "Privacidad",
+      "terms": "Términos y Condiciones"
     }
   }
 }

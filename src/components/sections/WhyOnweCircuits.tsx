@@ -49,7 +49,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
         { strokeDasharray: 1000, strokeDashoffset: 1000 },
         { 
           strokeDashoffset: 0, 
-          duration: 1.5, 
+          duration: 0.8, 
           ease: 'power2.out',
           scrollTrigger: {
             trigger: containerRef.current,
@@ -65,8 +65,8 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.2,
+          duration: 0.4,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: containerRef.current,
@@ -82,8 +82,8 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
         {
           opacity: 1,
           x: 0,
-          duration: 0.6,
-          stagger: 0.15,
+          duration: 0.4,
+          stagger: 0.1,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: '.mobile-circuit-container',

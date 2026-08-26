@@ -4,6 +4,9 @@ import Hero from '@/components/sections/Hero';
 
 import NarrativeTransition from '@/components/sections/NarrativeTransition';
 import WhyOnweCircuits from '@/components/sections/WhyOnweCircuits';
+import BentoMarquee from '@/components/sections/BentoMarquee';
+import TeamHologram from '@/components/sections/TeamHologram';
+import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/layout/Footer';
 import Grainient from '@/components/ui/Grainient';
 
@@ -58,6 +61,9 @@ export default async function HomePage({
         <Hero dict={dict} />
         <NarrativeTransition dict={dict} />
         <WhyOnweCircuits dict={dict} />
+        <BentoMarquee dict={dict} />
+        <TeamHologram dict={dict} />
+        <ContactSection dict={dict} />
       </main>
       <Footer dict={dict} />
     </div>
