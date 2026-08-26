@@ -6,7 +6,6 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ArrowRight, Search } from 'lucide-react';
-import Grainient from '@/components/ui/Grainient';
 import Magnet from '@/components/ui/Magnet';
 import LaptopMockup from '@/components/ui/LaptopMockup';
 
@@ -22,7 +21,6 @@ interface HeroProps {
       title_highlight: string;
       title_part2: string;
       subtitle: string;
-      search_placeholder: string;
       cta_primary: string;
       cta_secondary: string;
       trusted_by: string;
@@ -109,40 +107,8 @@ export default function Hero({ dict }: HeroProps) {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden pt-24 pb-12 sm:pt-30 sm:pb-16"
+      className="relative min-h-[90vh] w-full flex flex-col justify-center pt-24 pb-12 sm:pt-30 sm:pb-16"
     >
-      {/* Background Grainient WebGL Component */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Grainient
-          color1="#39d5ac"
-          color2="#031c17"
-          color3="#c2ffdb"
-          timeSpeed={1.1}
-          colorBalance={0}
-          warpStrength={0.95}
-          warpFrequency={5.6}
-          warpSpeed={1.6}
-          warpAmplitude={59}
-          blendAngle={32}
-          blendSoftness={0.3}
-          rotationAmount={480}
-          noiseScale={1.4}
-          grainAmount={0.04}
-          grainScale={0.2}
-          grainAnimated={false}
-          contrast={1.7}
-          gamma={0.75}
-          saturation={1.55}
-          centerX={0}
-          centerY={0}
-          zoom={0.85}
-        />
-      </div>
-
-      {/* Dark overlay gradients for contrast and WCAG readability */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#031c17]/70 via-[#031c17]/30 to-[#031c17]/70 pointer-events-none" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#031c17] via-transparent to-[#031c17]/50 pointer-events-none" />
-
       {/* Main Hero Content Area */}
       <div
         ref={contentRef}
@@ -195,32 +161,6 @@ export default function Hero({ dict }: HeroProps) {
         <div className="lg:col-span-5 relative flex flex-col items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
           <div className="hero-main-logo w-full">
             <LaptopMockup />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Social Proof / Brand Trust Strip */}
-      <div className="hero-social-proof relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 mt-12 sm:mt-16 pt-8 border-t border-emerald-500/15">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <p className="text-xs sm:text-sm text-slate-400 font-medium max-w-xs">
-            {dict.hero.trusted_by}
-          </p>
-
-          {/* Brand trust tags */}
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-70 hover:opacity-100 transition-all duration-300 text-xs sm:text-sm tracking-wider font-semibold text-slate-300">
-            <div className="flex items-center gap-2">
-              <Image src="/logos/onwe-mark.png" alt="Onwe Mark" width={22} height={22} className="object-contain" />
-              <span>ONWE PLATFORM</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#00ff79]">●</span> ENTERPRISE READY
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#00ff79]">●</span> NEXT-GEN ARCHITECTURE
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#00ff79]">●</span> REAL-TIME SYSTEMS
-            </div>
           </div>
         </div>
       </div>

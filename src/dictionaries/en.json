@@ -21,5 +21,61 @@
     "card_tag": "Direct Match",
     "card_role": "Cloud Architecture & Web App",
     "card_score": "Compatibility: 99.4%"
+  },
+  "narrative": {
+    "problem": "Your business is stuck in the past.",
+    "solution": "It's time to accelerate into the future."
+  },
+  "services": {
+    "title": "Technological Solutions",
+    "subtitle": "We don't build standard websites; we engineer tools that drive growth and optimize your processes.",
+    "web": {
+      "title": "High-Performance Web Development",
+      "desc": "Modern, lightning-fast interfaces optimized for maximum conversion and user retention."
+    },
+    "custom": {
+      "title": "Custom Systems",
+      "desc": "Software tailored specifically to solve the unique challenges of your business operations."
+    },
+    "scale": {
+      "title": "Scalable Architecture",
+      "desc": "Robust infrastructure ready to scale alongside your business without downtime."
+    },
+    "design": {
+      "title": "Premium UX/UI Design",
+      "desc": "Intuitive and memorable user experiences that elevate your brand's perceived value."
+    }
+  },
+  "differentiators": {
+    "title": "Why choose Onwe?",
+    "items": [
+      {
+        "title": "Extreme Speed",
+        "desc": "Near-zero load times. Every millisecond optimized to retain your customers."
+      },
+      {
+        "title": "Guaranteed Scalability",
+        "desc": "Modern architecture (Next.js, React) that handles massive traffic spikes without breaking a sweat."
+      },
+      {
+        "title": "Cutting-Edge Design",
+        "desc": "Interfaces that not only work flawlessly but captivate and position your brand in the premium segment."
+      },
+      {
+        "title": "Results-Driven Focus",
+        "desc": "Our technology aligns with your KPIs: increased sales and reduced operational costs."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's make it happen.",
+    "subtitle": "Leave your details and we'll reach out within 24 hours to discuss your project.",
+    "form": {
+      "name": "Full Name",
+      "company": "Company",
+      "email": "Email Address",
+      "message": "Tell us about your requirements...",
+      "submit": "Send Message"
+    }
   }
 }

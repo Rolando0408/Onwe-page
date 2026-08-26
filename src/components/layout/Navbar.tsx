@@ -53,13 +53,12 @@ export default function Navbar({ dict, lang }: NavbarProps) {
       tl.to(navInnerRef.current, {
         maxWidth: '1024px',
         marginTop: '16px',
-        paddingTop: '8px',
-        paddingBottom: '8px',
-        paddingLeft: '24px',
-        paddingRight: '12px',
+        paddingTop: '20px',
+        paddingBottom: '20px',
+        paddingLeft: '30px',
+        paddingRight: '30px',
         backgroundColor: 'rgba(3, 28, 23, 0.45)',
-        borderWidth: '1px',
-        borderColor: 'rgba(0, 255, 121, 0.3)',
+        borderWidth: '0px',
         borderRadius: '9999px',
         backdropFilter: 'blur(24px)',
         boxShadow: '0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 255, 121, 0.14)',
@@ -96,7 +95,6 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           marginTop: '0px',
           borderRadius: '0px',
           borderWidth: '0px',
-          borderColor: 'rgba(0, 255, 121, 0)',
         }}
       >
         {/* Brand Logo */}
@@ -105,9 +103,9 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             <Image
               src="/logos/onwe-logo.png"
               alt="Onwe Mark"
-              width={36}
-              height={36}
-              className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(0,255,121,0.35)]"
+              width={50}
+              height={50}
+              className="h-8 sm:h-8 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(0,255,121,0.35)]"
               priority
             />
           </div>

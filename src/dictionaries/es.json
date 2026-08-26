@@ -21,5 +21,61 @@
     "card_tag": "Match Perfecto",
     "card_role": "Arquitectura Cloud & Web App",
     "card_score": "Compatibilidad: 99.4%"
+  },
+  "narrative": {
+    "problem": "Tu negocio está atrapado en el pasado.",
+    "solution": "Es hora de acelerar hacia el futuro."
+  },
+  "services": {
+    "title": "Soluciones Tecnológicas",
+    "subtitle": "No hacemos páginas web comunes, construimos herramientas que impulsan el crecimiento y optimizan tus procesos.",
+    "web": {
+      "title": "Desarrollo Web de Alto Rendimiento",
+      "desc": "Interfaces modernas, rápidas y optimizadas para máxima conversión y retención de usuarios."
+    },
+    "custom": {
+      "title": "Sistemas a Medida",
+      "desc": "Software diseñado específicamente para resolver los retos únicos de tu operación empresarial."
+    },
+    "scale": {
+      "title": "Arquitectura Escalable",
+      "desc": "Infraestructura robusta preparada para crecer junto a tu negocio sin caídas."
+    },
+    "design": {
+      "title": "Diseño UX/UI UI Premium",
+      "desc": "Experiencias de usuario intuitivas y memorables que elevan el valor percibido de tu marca."
+    }
+  },
+  "differentiators": {
+    "title": "¿Por qué elegir Onwe?",
+    "items": [
+      {
+        "title": "Velocidad Extrema",
+        "desc": "Tiempos de carga casi inexistentes. Cada milisegundo optimizado para retener a tus clientes."
+      },
+      {
+        "title": "Escalabilidad Asegurada",
+        "desc": "Arquitectura moderna (Next.js, React) que soporta picos masivos de tráfico sin sudar."
+      },
+      {
+        "title": "Diseño de Vanguardia",
+        "desc": "Interfaces que no solo funcionan, sino que enamoran y posicionan tu marca en el segmento premium."
+      },
+      {
+        "title": "Enfoque en Resultados",
+        "desc": "Nuestra tecnología está alineada con tus KPIs: más ventas, menos costos operativos."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Hagamos que suceda.",
+    "subtitle": "Déjanos tus datos y nos pondremos en contacto contigo en menos de 24 horas para discutir tu proyecto.",
+    "form": {
+      "name": "Nombre completo",
+      "company": "Empresa",
+      "email": "Correo electrónico",
+      "message": "Cuéntanos sobre tu requerimiento...",
+      "submit": "Enviar Mensaje"
+    }
   }
 }

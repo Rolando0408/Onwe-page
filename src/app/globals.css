@@ -19,7 +19,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: #031c17;
 }
 
@@ -27,7 +26,6 @@ body {
   background-color: #031c17;
   color: #f8fafc;
   font-family: var(--font-sans);
-  overflow-x: hidden;
   min-height: 100vh;
 }
 
