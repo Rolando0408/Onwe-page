@@ -81,7 +81,7 @@ export default function NarrativeTransition({ dict }: NarrativeTransitionProps) 
       className="relative h-screen w-full flex items-center justify-center bg-transparent"
     >
       {/* Darkening Overlay */}
-      <div ref={bgRef} className="absolute inset-0 bg-[#010907] z-0 opacity-0 pointer-events-none" />
+      <div ref={bgRef} className="absolute inset-0 bg-[#031c17] z-0 opacity-0 pointer-events-none" />
       
       <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col items-center justify-center text-center max-w-5xl h-full">
         {/* Problem State */}

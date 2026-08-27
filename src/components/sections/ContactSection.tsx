@@ -91,7 +91,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Copy & Direct Contact */}
-          <div ref={leftColRef} className="w-full lg:w-1/2">
+          <div ref={leftColRef} className="w-full lg:w-1/2 lg:ml-20 lg:mb-10">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 font-symora leading-tight">
               {dict?.contact?.title || 'Hagamos que suceda.'}
             </h2>

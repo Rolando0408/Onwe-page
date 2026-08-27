@@ -33,7 +33,7 @@ interface FooterProps {
 
 export default function Footer({ dict }: FooterProps) {
   return (
-    <footer className="relative w-full overflow-hidden bg-[#010907] pt-24 pb-12 mt-24 border-t border-[#00ff79]/10">
+    <footer className="relative w-full overflow-hidden bg-[#031c17] pt-24 pb-12 mt-24 border-t border-[#00ff79]/10">
       <div className="container mx-auto px-6 lg:px-12 h-full">
         <div className="relative z-10 flex flex-col justify-between h-full min-h-[350px]">
           
@@ -85,20 +85,13 @@ export default function Footer({ dict }: FooterProps) {
         </div>
       </div>
 
-      {/* Massive Graphic Element on the Right */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[20%] pointer-events-none opacity-90 hidden md:block">
-        <div 
-          className="w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] bg-[#ffffff]"
-          style={{
-            WebkitMaskImage: "url('/logos/onwe-wt.svg')",
-            WebkitMaskSize: 'contain',
-            WebkitMaskRepeat: 'no-repeat',
-            WebkitMaskPosition: 'center right',
-            maskImage: "url('/logos/onwe-wt.svg')",
-            maskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            maskPosition: 'center right',
-          }}
+      {/* Graphic Element on the Right */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 mr-10 pointer-events-none hidden md:block w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] opacity-40">
+        <Image
+          src="/logos/onwe-wt.svg"
+          alt="Onwe Graphic"
+          fill
+          className="object-contain object-right"
         />
       </div>
       

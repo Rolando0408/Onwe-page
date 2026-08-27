@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -40,58 +40,133 @@ const cardPositions = [
 export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate the drawing of the SVG lines
-      gsap.fromTo('.circuit-base-path', 
-        { strokeDasharray: 1000, strokeDashoffset: 1000 },
-        { 
-          strokeDashoffset: 0, 
-          duration: 0.8, 
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 60%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-      
-      // Animate cards fading in
-      gsap.fromTo('.circuit-card',
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 50%',
-            toggleActions: 'play none none reverse'
-          }
-        }
+      // -------------------------------------------------------------
+      // DESKTOP & GLOBAL PINNED SCROLL ANIMATION
+      // -------------------------------------------------------------
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'center center',
+          end: '+=1000',
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+        },
+      });
+
+      // 1. Center logo lights up first
+      tl.fromTo(
+        '.center-logo-glow',
+        { opacity: 0.3, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.3 }
       );
 
-      // Mobile cards stagger
-      gsap.fromTo('.mobile-circuit-card',
-        { opacity: 0, x: -20 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.mobile-circuit-container',
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-          }
-        }
+      // 2. Animate Top Circuit Paths (Top-Left & Top-Right)
+      tl.fromTo(
+        '.circuit-path-0, .circuit-path-1',
+        { strokeDashoffset: 1000 },
+        { strokeDashoffset: 0, duration: 1, ease: 'none' },
+        'top-paths'
       );
+
+      // 3. When top lines reach cards, light up Top Cards
+      tl.fromTo(
+        '.circuit-card-0, .circuit-card-1',
+        { 
+          opacity: 0.25, 
+          backgroundColor: 'rgba(3, 28, 23, 0.2)',
+          borderColor: 'rgba(16, 185, 129, 0.2)', 
+          boxShadow: '0 0 0px rgba(0,0,0,0)' 
+        },
+        { 
+          opacity: 1, 
+          backgroundColor: 'rgba(3, 28, 23, 0.45)',
+          borderColor: '#00ff79', 
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 255, 121, 0.4)', 
+          duration: 0.5,
+          stagger: 0.1,
+          ease: 'power2.out'
+        },
+        '-=0.3'
+      );
+
+      // 4. Animate Bottom Circuit Paths (Bottom-Left & Bottom-Right)
+      tl.fromTo(
+        '.circuit-path-2, .circuit-path-3',
+        { strokeDashoffset: 1000 },
+        { strokeDashoffset: 0, duration: 1, ease: 'none' },
+        'bottom-paths'
+      );
+
+      // 5. When bottom lines reach cards, light up Bottom Cards
+      tl.fromTo(
+        '.circuit-card-2, .circuit-card-3',
+        { 
+          opacity: 0.25, 
+          backgroundColor: 'rgba(3, 28, 23, 0.2)',
+          borderColor: 'rgba(16, 185, 129, 0.2)', 
+          boxShadow: '0 0 0px rgba(0,0,0,0)' 
+        },
+        { 
+          opacity: 1, 
+          backgroundColor: 'rgba(3, 28, 23, 0.45)',
+          borderColor: '#00ff79', 
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 255, 121, 0.4)', 
+          duration: 0.5,
+          stagger: 0.1,
+          ease: 'power2.out'
+        },
+        '-=0.3'
+      );
+
+      // -------------------------------------------------------------
+      // MOBILE SCROLL ANIMATION
+      // -------------------------------------------------------------
+      const mobileTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.mobile-circuit-container',
+          start: 'top 75%',
+          end: 'bottom 50%',
+          scrub: 0.8,
+        },
+      });
+
+      // Mobile center line grows downward as user scrolls
+      mobileTl.fromTo(
+        '.mobile-connecting-line',
+        { scaleY: 0 },
+        { scaleY: 1, transformOrigin: 'top center', duration: 1.5, ease: 'none' }
+      );
+
+      // Each mobile card lights up progressively on scroll
+      gsap.utils.toArray<HTMLElement>('.mobile-circuit-card').forEach((card) => {
+        gsap.fromTo(
+          card,
+          { 
+            opacity: 0.25, 
+            backgroundColor: 'rgba(3, 28, 23, 0.2)',
+            borderColor: 'rgba(16, 185, 129, 0.2)', 
+            boxShadow: '0 0 0px rgba(0,0,0,0)' 
+          },
+          {
+            opacity: 1,
+            backgroundColor: 'rgba(3, 28, 23, 0.45)',
+            borderColor: '#00ff79',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 255, 121, 0.4)',
+            duration: 0.4,
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 80%',
+              end: 'top 60%',
+              scrub: 0.5,
+            },
+          }
+        );
+      });
+
     }, containerRef);
 
     return () => ctx.revert();
@@ -101,23 +176,23 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
     <section 
       id="why-onwe" 
       ref={containerRef}
-      className="relative w-full py-24 lg:py-32 overflow-hidden bg-transparent border-t border-emerald-500/10"
+      className="relative w-full min-h-screen py-8 lg:py-12 flex flex-col justify-center items-center overflow-hidden bg-transparent border-t border-emerald-500/10"
     >
       <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col items-center">
         
         {/* Title */}
-        <div className="text-center mb-16 lg:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
+        <div className="text-center mb-6 lg:mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3">
             {dict.differentiators.title}
           </h2>
-          <div className="w-20 h-1 bg-[#00ff79] mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-[#00ff79] mx-auto rounded-full shadow-[0_0_12px_#00ff79]" />
         </div>
 
         {/* ========================================== */}
-        {/* DESKTOP LAYOUT (Canvas 1000x600)             */}
+        {/* DESKTOP LAYOUT (Canvas 1000x560)             */}
         {/* ========================================== */}
-        <div className="hidden lg:flex w-full justify-center">
-          <div className="relative w-[1000px] h-[600px] scale-[0.8] xl:scale-100 transform-origin-top">
+        <div className="hidden lg:flex w-full justify-center items-center">
+          <div className="relative w-[1000px] h-[560px] scale-[0.68] lg:scale-[0.75] xl:scale-[0.82] 2xl:scale-[0.9] origin-center">
             
             {/* SVG Lines */}
             <svg ref={svgRef} className="absolute inset-0 w-full h-full z-0 pointer-events-none">
@@ -130,69 +205,62 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
               
               {paths.map((path, idx) => (
                 <g key={idx}>
-                  {/* Base dim line */}
+                  {/* Subtle background circuit trace */}
                   <path 
                     d={path} 
                     fill="none" 
-                    stroke="#00ff79" 
-                    strokeWidth="2" 
-                    className="circuit-base-path opacity-20"
+                    stroke="rgba(0, 255, 121, 0.12)" 
+                    strokeWidth="2.5" 
                   />
-                  {/* Glowing active line (visible on hover) */}
+                  {/* Illuminated animated path driven by scroll */}
                   <path 
                     d={path} 
                     fill="none" 
                     stroke="#00ff79" 
                     strokeWidth="3" 
                     filter="url(#glow)"
-                    className="transition-all duration-500"
-                    style={{
-                      strokeDasharray: 1000,
-                      strokeDashoffset: hoveredIndex === idx ? 0 : 1000,
-                      opacity: hoveredIndex === idx ? 1 : 0
-                    }}
+                    className={`circuit-path-${idx}`}
+                    style={{ strokeDasharray: 1000, strokeDashoffset: 1000 }}
                   />
                 </g>
               ))}
             </svg>
 
             {/* Center Logo */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-32 h-32 rounded-full bg-white/5 backdrop-blur-xl border border-[#00ff79]/40 flex items-center justify-center shadow-[0_0_60px_rgba(0,255,121,0.2)]">
+            <div className="center-logo-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-32 h-32 rounded-full bg-[#031c17]/40 backdrop-blur-2xl border-2 border-[#00ff79] flex items-center justify-center shadow-[0_0_60px_rgba(0,255,121,0.4)]">
               <Image 
                 src="/logos/onwe-mark.png" 
                 alt="Onwe" 
                 width={72} 
                 height={72} 
-                className="object-contain relative z-10"
+                className="object-contain relative z-10 filter drop-shadow-[0_0_12px_rgba(0,255,121,0.6)]"
               />
-              <div className="absolute inset-0 rounded-full border border-[#00ff79]/50 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20" />
+              <div className="absolute inset-0 rounded-full border border-[#00ff79] animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-30" />
             </div>
 
             {/* 4 Cards */}
             {dict.differentiators.items.map((item, idx) => {
               const Icon = icons[idx];
-              const isHovered = hoveredIndex === idx;
               return (
                 <div 
                   key={idx}
-                  onMouseEnter={() => setHoveredIndex(idx)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className={`circuit-card absolute w-[340px] p-8 rounded-2xl bg-white/5 backdrop-blur-xl border transition-all duration-500 z-10 cursor-default ${cardPositions[idx]} ${
-                    isHovered 
-                      ? 'border-[#00ff79]/60 shadow-[0_0_40px_rgba(0,255,121,0.2)] -translate-y-2' 
-                      : 'border-emerald-500/20 shadow-lg'
-                  }`}
+                  className={`circuit-card-wrapper absolute w-[340px] z-10 ${cardPositions[idx]}`}
                 >
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300 ${isHovered ? 'bg-[#00ff79]/20' : 'bg-emerald-950/80 border border-emerald-500/20'}`}>
-                        <Icon className={`w-6 h-6 transition-colors duration-300 ${isHovered ? 'text-[#00ff79]' : 'text-emerald-400'}`} />
+                  <div 
+                    className={`circuit-card-${idx} w-full p-8 rounded-3xl bg-[#031c17]/40 backdrop-blur-2xl border-2 cursor-pointer transition-all duration-300 ease-out transform hover:scale-105 hover:bg-[#031c17]/60 hover:shadow-[0_0_55px_rgba(0,255,121,0.6)]`}
+                    style={{ borderColor: 'rgba(16, 185, 129, 0.2)' }}
+                  >
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                          <Icon className="w-6 h-6 text-emerald-400" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
                       </div>
-                      <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
+                      <p className="text-slate-300 leading-relaxed text-sm">
+                        {item.desc}
+                      </p>
                     </div>
-                    <p className="text-slate-300 leading-relaxed text-sm">
-                      {item.desc}
-                    </p>
                   </div>
                 </div>
               );
@@ -206,18 +274,18 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
         <div className="flex lg:hidden flex-col items-center w-full max-w-2xl mobile-circuit-container relative">
           
           {/* Mobile Center Logo */}
-          <div className="w-24 h-24 rounded-full bg-white/5 backdrop-blur-xl border border-[#00ff79]/40 flex items-center justify-center shadow-[0_0_40px_rgba(0,255,121,0.2)] mb-10 relative z-20">
+          <div className="w-24 h-24 rounded-full bg-[#031c17]/40 backdrop-blur-2xl border-2 border-[#00ff79] flex items-center justify-center shadow-[0_0_40px_rgba(0,255,121,0.4)] mb-10 relative z-20">
             <Image 
               src="/logos/onwe-mark.png" 
               alt="Onwe" 
               width={48} 
               height={48} 
-              className="object-contain"
+              className="object-contain filter drop-shadow-[0_0_10px_rgba(0,255,121,0.6)]"
             />
           </div>
 
           {/* Vertical connecting line behind items */}
-          <div className="absolute top-[48px] bottom-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-[#00ff79]/50 via-emerald-500/20 to-transparent z-0" />
+          <div className="mobile-connecting-line absolute top-[48px] bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-[#00ff79] via-[#00ff79] to-transparent shadow-[0_0_15px_rgba(0,255,121,0.8)] z-0 origin-top" />
 
           <div className="flex flex-col gap-6 w-full relative z-10">
             {dict.differentiators.items.map((item, idx) => {
@@ -225,13 +293,13 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
               return (
                 <div 
                   key={idx}
-                  className="mobile-circuit-card w-full p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg relative overflow-hidden"
+                  className="mobile-circuit-card w-full p-6 sm:p-8 rounded-3xl bg-[#031c17]/40 backdrop-blur-2xl border-2 transition-all duration-300 ease-out transform hover:scale-105 hover:bg-[#031c17]/60 hover:shadow-[0_0_55px_rgba(0,255,121,0.6)] relative overflow-hidden group cursor-pointer"
+                  style={{ borderColor: 'rgba(16, 185, 129, 0.2)' }}
                 >
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#00ff79] to-transparent opacity-50" />
-                  <div className="flex flex-col gap-3 ml-2">
+                  <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-4 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-950/80 border border-emerald-500/20 flex items-center justify-center shrink-0">
-                        <Icon className="w-5 h-5 text-[#00ff79]" />
+                      <div className="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                        <Icon className="w-6 h-6 text-emerald-400" />
                       </div>
                       <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
                     </div>
