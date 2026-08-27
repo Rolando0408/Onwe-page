@@ -100,11 +100,11 @@ export default function ContactSection({ dict }: ContactSectionProps) {
             </p>
 
             <div className="space-y-6">
-              <a href="mailto:hello@onwe.com" className="flex items-center gap-4 text-slate-300 hover:text-[#00ff79] transition-colors group">
-                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#00ff79]/50 transition-colors">
+              <a href="mailto:hello@onwe.com" className="inline-flex items-center gap-4 text-slate-300 hover:text-[#00ff79] transition-colors group cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#00ff79]/50 group-hover:text-[#00ff79] transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="text-lg font-medium">hello@onwe.com</span>
+                <span className="text-lg font-medium group-hover:text-[#00ff79] transition-colors">hello@onwe.com</span>
               </a>
               
               <div className="flex items-center gap-4 text-slate-300">

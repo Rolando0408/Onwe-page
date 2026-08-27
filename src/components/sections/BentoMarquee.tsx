@@ -84,7 +84,7 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
         
         {/* Row 1: Moves Left */}
         {/* We use animate-[marquee_X] which is defined in globals.css */}
-        <div className="flex w-max gap-6 animate-[marquee_45s_linear_infinite] hover:[animation-play-state:paused]">
+        <div className="flex w-max gap-6 animate-[marquee_45s_linear_infinite]">
           {marqueeItems.map((src, i) => (
             <div 
               key={`r1-${i}`} 
@@ -109,7 +109,7 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
 
         {/* Row 2: Moves Right (reverse) */}
         {/* Negative margin to offset the starting position compared to Row 1 */}
-        <div className="flex w-max gap-6 animate-[marquee_55s_linear_infinite_reverse] hover:[animation-play-state:paused] -ml-[25vw]">
+        <div className="flex w-max gap-6 animate-[marquee_55s_linear_infinite_reverse] -ml-[25vw]">
           {marqueeItems.map((src, i) => (
             <div 
               key={`r2-${i}`} 
@@ -132,7 +132,7 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
         </div>
 
         {/* Row 3: Moves Left (different speed/width to break uniformity) */}
-        <div className="flex w-max gap-6 animate-[marquee_40s_linear_infinite] hover:[animation-play-state:paused] ml-[5vw]">
+        <div className="flex w-max gap-6 animate-[marquee_40s_linear_infinite] ml-[5vw]">
           {marqueeItems.map((src, i) => (
             <div 
               key={`r3-${i}`} 
