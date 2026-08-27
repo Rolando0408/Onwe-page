@@ -74,6 +74,17 @@ export default function Navbar({ dict, lang }: NavbarProps) {
     router.push(newPath || `/${targetLang}`);
   };
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const id = href.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   const navLinks = [
     { label: dict.nav.home, href: `#hero` },
     { label: dict.nav.why || '¿Por qué Onwe?', href: `#why-onwe` },
@@ -97,7 +108,11 @@ export default function Navbar({ dict, lang }: NavbarProps) {
         }}
       >
         {/* Brand Logo */}
-        <Link href={`/${lang}`} className="flex items-center gap-2 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-lg">
+        <Link 
+          href={`/${lang}`} 
+          onClick={(e) => scrollToSection(e, '#hero')}
+          className="flex items-center gap-2 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-lg"
+        >
           <div className="relative flex items-center transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/logos/onwe-logo.png"
@@ -116,6 +131,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             <Link
               key={link.label}
               href={link.href}
+              onClick={(e) => scrollToSection(e, link.href)}
               className="px-4 py-1.5 text-sm font-medium text-slate-200 hover:text-white rounded-full transition-all duration-200 hover:bg-emerald-500/15 hover:shadow-[0_0_12px_rgba(0,255,121,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79]"
             >
               {link.label}
@@ -136,6 +152,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
           <Link
             href="#contact"
+            onClick={(e) => scrollToSection(e, '#contact')}
             className="px-4 py-1.5 text-xs font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] hover:shadow-[0_0_15px_rgba(0,255,121,0.4)] rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             {dict.nav.contact}
@@ -170,7 +187,10 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               <Link
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  scrollToSection(e, link.href);
+                }}
                 className="px-4 py-2.5 text-base font-medium text-slate-200 hover:text-white hover:bg-emerald-500/15 rounded-xl transition-all"
               >
                 {link.label}
@@ -179,7 +199,10 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           </nav>
           <Link
             href="#contact"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              scrollToSection(e, '#contact');
+            }}
             className="w-full text-center py-3 text-sm font-bold text-zinc-950 bg-[#00ff79] rounded-full shadow-[0_0_20px_rgba(0,255,121,0.5)]"
           >
             {dict.nav.cta}

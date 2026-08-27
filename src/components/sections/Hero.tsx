@@ -103,6 +103,17 @@ export default function Hero({ dict }: HeroProps) {
     { scope: containerRef }
   );
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const id = href.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <section
       id="hero"
@@ -138,7 +149,8 @@ export default function Hero({ dict }: HeroProps) {
             <Magnet magnetStrength={3} padding={50}>
               <Link
                 href="#contact"
-                className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-white bg-emerald-600 rounded-full shadow-[0_0_20px_rgba(0,255,121,0.3)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-all duration-300 active:scale-95"
+                onClick={(e) => scrollToSection(e, '#contact')}
+                className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] rounded-full shadow-[0_0_20px_rgba(0,255,121,0.4)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] focus-visible:ring-2 focus-visible:ring-white transition-all duration-300 active:scale-95 cursor-pointer"
               >
                 {/* Shine Sweep Effect */}
                 <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
@@ -150,6 +162,7 @@ export default function Hero({ dict }: HeroProps) {
 
             <Link
               href="#services"
+              onClick={(e) => scrollToSection(e, '#services')}
               className="inline-flex items-center gap-2 px-7 py-4 text-base font-semibold text-slate-200 bg-emerald-950/50 border border-emerald-500/25 rounded-full hover:bg-emerald-900/40 hover:border-emerald-500/50 hover:text-white focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-black backdrop-blur-md transition-all duration-200"
             >
               <span>{dict.hero.cta_secondary}</span>
