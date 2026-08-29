@@ -2,6 +2,7 @@
   "nav": {
     "home": "Inicio",
     "why": "¿Por qué Onwe?",
+    "about": "Nosotros",
     "services": "Servicios",
     "team": "Equipo",
     "contact": "Contacto",
@@ -94,6 +95,27 @@
       "message": "Cuéntanos sobre tu requerimiento...",
       "submit": "Enviar Mensaje"
     }
+  },
+  "about": {
+    "mission_title": "Nuestra Misión",
+    "mission_desc": "Impulsar la transformación digital de empresas mediante arquitecturas de software escalables, código limpio y experiencias de usuario inmersivas. Construimos herramientas tecnológicas que resuelven problemas complejos con elegancia y rendimiento absoluto.",
+    "vision_title": "Nuestra Visión",
+    "vision_desc": "Convertirnos en el estándar de excelencia para el desarrollo de productos digitales B2B en Latinoamérica, liderando la transición hacia ecosistemas tecnológicos donde el diseño excepcional y la ingeniería robusta sean indivisibles.",
+    "values_title": "Nuestros Valores",
+    "values": [
+      {
+        "title": "Innovación Tecnológica",
+        "desc": "Adoptamos y dominamos el stack más avanzado para garantizar productos a prueba de futuro."
+      },
+      {
+        "title": "Escalabilidad Absoluta",
+        "desc": "Diseñamos sistemas preparados para crecer exponencialmente desde el primer commit."
+      },
+      {
+        "title": "Transparencia Radical",
+        "desc": "Comunicación clara, código auditable y procesos abiertos con cada uno de nuestros clientes."
+      }
+    ]
   },
   "footer": {
     "address_l1": "Pampatar",

@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "why": "Why Onwe?",
+    "about": "About",
     "services": "Services",
     "team": "Team",
     "contact": "Contact",
@@ -94,6 +95,27 @@
       "message": "Tell us about your requirements...",
       "submit": "Send Message"
     }
+  },
+  "about": {
+    "mission_title": "Our Mission",
+    "mission_desc": "To drive the digital transformation of businesses through scalable software architectures, clean code, and immersive user experiences. We build technological tools that solve complex problems with elegance and absolute performance.",
+    "vision_title": "Our Vision",
+    "vision_desc": "To become the gold standard for B2B digital product development in Latin America, leading the transition toward technological ecosystems where exceptional design and robust engineering are inseparable.",
+    "values_title": "Our Values",
+    "values": [
+      {
+        "title": "Technological Innovation",
+        "desc": "We adopt and master the most advanced stack to ensure future-proof products."
+      },
+      {
+        "title": "Absolute Scalability",
+        "desc": "We design systems prepared to grow exponentially from the very first commit."
+      },
+      {
+        "title": "Radical Transparency",
+        "desc": "Clear communication, auditable code, and open processes with every single client."
+      }
+    ]
   },
   "footer": {
     "address_l1": "Pampatar",

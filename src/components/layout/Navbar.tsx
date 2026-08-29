@@ -48,7 +48,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
       { rootMargin: '-20% 0px -60% 0px' }
     );
 
-    const sections = ['hero', 'why-onwe', 'services', 'team', 'contact'];
+    const sections = ['hero', 'why-onwe', 'about', 'services', 'team', 'contact'];
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -110,6 +110,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const navLinks = [
     { label: dict.nav.home, href: `#hero` },
     { label: dict.nav.why || '¿Por qué Onwe?', href: `#why-onwe` },
+    { label: dict.nav.about || 'Nosotros', href: `#about` },
     { label: dict.nav.services, href: `#services` },
     // { label: dict.nav.team || 'Equipo', href: `#team` },
   ];
@@ -222,19 +223,27 @@ export default function Navbar({ dict, lang }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="sm:hidden fixed inset-x-4 top-20 bg-[#031c17]/95 backdrop-blur-2xl border border-emerald-500/30 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 z-50 pointer-events-auto">
           <nav className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  setMobileMenuOpen(false);
-                  scrollToSection(e, link.href);
-                }}
-                className="px-4 py-2.5 text-base font-medium text-slate-200 hover:text-white hover:bg-emerald-500/15 rounded-xl transition-all"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const sectionId = link.href.substring(1);
+              const isActive = activeSection === sectionId;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    scrollToSection(e, link.href);
+                  }}
+                  className={`px-4 py-2.5 text-base font-medium rounded-xl transition-all ${
+                    isActive
+                      ? 'text-white bg-emerald-500/20 border border-emerald-500/30'
+                      : 'text-slate-200 hover:text-white hover:bg-emerald-500/15 border border-transparent'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
           <Link
             href="#contact"

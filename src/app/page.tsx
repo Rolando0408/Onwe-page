@@ -7,6 +7,7 @@ import WhyOnweCircuits from '@/components/sections/WhyOnweCircuits';
 import Footer from '@/components/layout/Footer';
 import Grainient from '@/components/ui/Grainient';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import MissionVision from '@/components/sections/MissionVision';
 
 export default async function RootPage() {
   const dict = await getDictionary('es');
@@ -49,6 +50,7 @@ export default async function RootPage() {
         <Hero dict={dict} />
         <NarrativeTransition dict={dict} />
         <WhyOnweCircuits dict={dict} />
+        <MissionVision dict={dict} />
       </main>
       <Footer dict={dict} />
       <ScrollToTop />

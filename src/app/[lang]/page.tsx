@@ -10,6 +10,7 @@ import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/layout/Footer';
 import Grainient from '@/components/ui/Grainient';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import MissionVision from '@/components/sections/MissionVision';
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -62,6 +63,7 @@ export default async function HomePage({
         <Hero dict={dict} />
         <NarrativeTransition dict={dict} />
         <WhyOnweCircuits dict={dict} />
+        <MissionVision dict={dict} />
         <BentoMarquee dict={dict} />
         {/* <TeamHologram dict={dict} /> */}
         <ContactSection dict={dict} />
