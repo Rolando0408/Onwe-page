@@ -42,7 +42,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    let mm = gsap.matchMedia();
+    const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {
       // -------------------------------------------------------------

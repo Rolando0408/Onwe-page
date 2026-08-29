@@ -19,6 +19,7 @@ interface NavbarProps {
     nav: {
       home: string;
       why?: string;
+      about?: string;
       services: string;
       team?: string;
       contact: string;
