@@ -38,17 +38,37 @@ export default function ContactSection({ dict }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting || isSubmitted) return;
 
     setIsSubmitting(true);
 
-    // Simulate server response
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "");
+    formData.append("subject", "Nuevo requerimiento - Landing Page Onwe");
+    formData.append("from_name", "Onwe Contact Form");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        console.error("Error from Web3Forms:", data);
+        alert("Ocurrió un error al enviar el mensaje. Por favor intenta nuevamente.");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Ocurrió un error de red. Por favor revisa tu conexión e intenta de nuevo.");
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1200);
+    }
   };
 
   useGSAP(() => {
@@ -100,11 +120,11 @@ export default function ContactSection({ dict }: ContactSectionProps) {
             </p>
 
             <div className="space-y-6">
-              <a href="mailto:hello@onwe.com" className="inline-flex items-center gap-4 text-slate-300 hover:text-[#00ff79] transition-colors group cursor-pointer">
+              <a href="mailto:info@onwe.codes" className="inline-flex items-center gap-4 text-slate-300 hover:text-[#00ff79] transition-colors group cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#00ff79]/50 group-hover:text-[#00ff79] transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="text-lg font-medium group-hover:text-[#00ff79] transition-colors">hello@onwe.com</span>
+                <span className="text-lg font-medium group-hover:text-[#00ff79] transition-colors">info@onwe.codes</span>
               </a>
               
               <div className="flex items-center gap-4 text-slate-300">
@@ -123,7 +143,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#00ff79]/50 to-transparent" />
               
               <form className="space-y-6" onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6">
                   {/* Name Input */}
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-slate-300 block">
@@ -131,22 +151,11 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                     </label>
                     <input 
                       type="text" 
+                      name="name"
                       required
                       disabled={isSubmitted || isSubmitting}
                       className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
                       placeholder="John Doe"
-                    />
-                  </div>
-                  {/* Company Input */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-300 block">
-                      {dict?.contact?.form?.company || 'Empresa'}
-                    </label>
-                    <input 
-                      type="text" 
-                      disabled={isSubmitted || isSubmitting}
-                      className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
-                      placeholder="Acme Corp"
                     />
                   </div>
                 </div>
@@ -158,6 +167,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                   </label>
                   <input 
                     type="email" 
+                    name="email"
                     required
                     disabled={isSubmitted || isSubmitting}
                     className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
@@ -171,6 +181,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                     {dict?.contact?.form?.message || 'Mensaje'}
                   </label>
                   <textarea 
+                    name="message"
                     rows={4}
                     required
                     disabled={isSubmitted || isSubmitting}

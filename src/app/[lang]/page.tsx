@@ -9,6 +9,7 @@ import TeamHologram from '@/components/sections/TeamHologram';
 import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/layout/Footer';
 import Grainient from '@/components/ui/Grainient';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -66,6 +67,7 @@ export default async function HomePage({
         <ContactSection dict={dict} />
       </main>
       <Footer dict={dict} />
+      <ScrollToTop />
     </div>
   );
 }
