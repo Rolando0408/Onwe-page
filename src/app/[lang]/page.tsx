@@ -63,7 +63,7 @@ export default async function HomePage({
         <NarrativeTransition dict={dict} />
         <WhyOnweCircuits dict={dict} />
         <BentoMarquee dict={dict} />
-        <TeamHologram dict={dict} />
+        {/* <TeamHologram dict={dict} /> */}
         <ContactSection dict={dict} />
       </main>
       <Footer dict={dict} />

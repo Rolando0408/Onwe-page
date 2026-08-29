@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -34,6 +34,28 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+
+    const sections = ['hero', 'why-onwe', 'services', 'team', 'contact'];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useGSAP(
     () => {
@@ -89,7 +111,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
     { label: dict.nav.home, href: `#hero` },
     { label: dict.nav.why || '¿Por qué Onwe?', href: `#why-onwe` },
     { label: dict.nav.services, href: `#services` },
-    { label: dict.nav.team || 'Equipo', href: `#team` },
+    // { label: dict.nav.team || 'Equipo', href: `#team` },
   ];
 
   return (
@@ -107,75 +129,92 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           borderWidth: '0px',
         }}
       >
-        {/* Brand Logo */}
-        <Link 
-          href={`/${lang}`} 
-          onClick={(e) => scrollToSection(e, '#hero')}
-          className="flex items-center gap-2 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-lg"
-        >
-          <div className="relative flex items-center transition-transform duration-300 group-hover:scale-105">
-            <Image
-              src="/logos/onwe-logo.png"
-              alt="Onwe Mark"
-              width={50}
-              height={50}
-              className="h-8 sm:h-8 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(0,255,121,0.35)]"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-2 lg:gap-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className="px-4 py-1.5 text-sm font-medium text-slate-200 hover:text-white rounded-full transition-all duration-200 hover:bg-emerald-500/15 hover:shadow-[0_0_12px_rgba(0,255,121,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79]"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right CTA + Language Switcher */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
-          <button
-            onClick={toggleLanguage}
-            aria-label="Change language"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 hover:border-emerald-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,121,0.1)]"
+        {/* Left Side: Brand Logo */}
+        <div className="flex-1 flex justify-start">
+          <Link 
+            href={`/${lang}`} 
+            onClick={(e) => scrollToSection(e, '#hero')}
+            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-lg"
           >
-            <Globe className="w-3.5 h-3.5" />
-            <span>{lang === 'es' ? 'EN' : 'ES'}</span>
-          </button>
-
-          <Link
-            href="#contact"
-            onClick={(e) => scrollToSection(e, '#contact')}
-            className="px-4 py-1.5 text-xs font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] hover:shadow-[0_0_15px_rgba(0,255,121,0.4)] rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          >
-            {dict.nav.contact}
+            <div className="relative flex items-center transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/logos/onwe-logo.png"
+                alt="Onwe Mark"
+                width={50}
+                height={50}
+                className="h-8 sm:h-8 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(0,255,121,0.35)]"
+                priority
+              />
+            </div>
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="flex sm:hidden items-center gap-2">
-          <button
-            onClick={toggleLanguage}
-            aria-label="Change language"
-            className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold uppercase text-emerald-400 bg-emerald-950/70 border border-emerald-500/30 rounded-full"
-          >
-            <span>{lang === 'es' ? 'EN' : 'ES'}</span>
-          </button>
+        {/* Center: Desktop Navigation Links */}
+        <nav className="hidden md:flex flex-none items-center justify-center gap-2 lg:gap-3">
+          {navLinks.map((link) => {
+            const sectionId = link.href.substring(1);
+            const isActive = activeSection === sectionId;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] ${
+                  isActive 
+                    ? 'text-white bg-emerald-500/20 shadow-[0_0_15px_rgba(0,255,121,0.15)] border border-emerald-500/20'
+                    : 'text-slate-300 hover:text-white hover:bg-emerald-500/10 border border-transparent'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-            className="p-2 text-slate-200 hover:text-white bg-emerald-950/60 border border-emerald-500/30 rounded-full"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+        {/* Right Side: CTA + Mobile Toggle */}
+        <div className="flex-1 flex items-center justify-end gap-3">
+          {/* Desktop Right items */}
+          <div className="hidden sm:flex items-center gap-3">
+            <button
+              onClick={toggleLanguage}
+              aria-label="Change language"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 hover:border-emerald-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,121,0.1)]"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>{lang === 'es' ? 'EN' : 'ES'}</span>
+            </button>
+
+            <Link
+              href="#contact"
+              onClick={(e) => scrollToSection(e, '#contact')}
+              className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                activeSection === 'contact'
+                  ? 'text-[#010907] bg-white hover:bg-gray-100 shadow-[0_0_20px_rgba(255,255,255,0.5)]'
+                  : 'text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] hover:shadow-[0_0_15px_rgba(0,255,121,0.4)]'
+              }`}
+            >
+              {dict.nav.contact}
+            </Link>
+          </div>
+
+          {/* Mobile Right items */}
+          <div className="flex sm:hidden items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              aria-label="Change language"
+              className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold uppercase text-emerald-400 bg-emerald-950/70 border border-emerald-500/30 rounded-full"
+            >
+              <span>{lang === 'es' ? 'EN' : 'ES'}</span>
+            </button>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+              className="p-2 text-slate-200 hover:text-white bg-emerald-950/60 border border-emerald-500/30 rounded-full"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
