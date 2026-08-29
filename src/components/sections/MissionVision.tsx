@@ -145,7 +145,7 @@ export default function MissionVision({ dict }: MissionVisionProps) {
             </p>
           </div>
           
-          <div ref={missionVisualRef} className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+          <div ref={missionVisualRef} className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end">
             <div className="relative w-full max-w-md aspect-square rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-[#00ff79]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <Target className="w-32 h-32 text-[#00ff79]/80 drop-shadow-[0_0_30px_rgba(0,255,121,0.5)] group-hover:scale-110 transition-transform duration-700 ease-out" strokeWidth={1} />
@@ -155,7 +155,7 @@ export default function MissionVision({ dict }: MissionVisionProps) {
 
         {/* ROW 2: VISION (Zag) */}
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
-          <div ref={visionVisualRef} className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+          <div ref={visionVisualRef} className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-start">
             <div className="relative w-full max-w-md aspect-square rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-tl from-[#39d5ac]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <Eye className="w-32 h-32 text-[#39d5ac]/80 drop-shadow-[0_0_30px_rgba(57,213,172,0.5)] group-hover:scale-110 transition-transform duration-700 ease-out" strokeWidth={1} />
@@ -202,7 +202,7 @@ export default function MissionVision({ dict }: MissionVisionProps) {
             </ul>
           </div>
           
-          <div ref={valuesVisualRef} className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+          <div ref={valuesVisualRef} className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end">
             <div className="relative w-full max-w-md aspect-square rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-[#00ff79]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <Diamond className="w-32 h-32 text-[#00ff79]/80 drop-shadow-[0_0_30px_rgba(0,255,121,0.5)] group-hover:scale-110 transition-transform duration-700 ease-out" strokeWidth={1} />

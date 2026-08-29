@@ -42,7 +42,9 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
       // -------------------------------------------------------------
       // DESKTOP & GLOBAL PINNED SCROLL ANIMATION
       // -------------------------------------------------------------
@@ -121,7 +123,9 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
         },
         '-=0.3'
       );
+    });
 
+    mm.add("(max-width: 1023px)", () => {
       // -------------------------------------------------------------
       // MOBILE SCROLL ANIMATION
       // -------------------------------------------------------------
@@ -166,10 +170,9 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
           }
         );
       });
+    });
 
-    }, containerRef);
-
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

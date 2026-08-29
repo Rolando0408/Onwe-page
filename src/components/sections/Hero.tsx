@@ -171,7 +171,7 @@ export default function Hero({ dict }: HeroProps) {
         </div>
 
         {/* Right Column: Main Brand Logo with Dramatic Intro */}
-        <div className="lg:col-span-5 relative flex flex-col items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
+        <div className="hidden lg:flex lg:col-span-5 relative flex-col items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
           <div className="hero-main-logo w-full">
             <LaptopMockup />
           </div>
