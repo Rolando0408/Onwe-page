@@ -52,16 +52,16 @@ export default function Footer({ dict }: FooterProps) {
 
             {/* Address */}
             <address className="not-italic text-slate-300 font-medium mb-12 space-y-1">
-              <p>{dict?.footer?.address_l1 || 'Av. Principal de Las Mercedes'}</p>
-              <p>{dict?.footer?.address_l2 || 'Caracas, Venezuela'}</p>
+              <p>{dict?.footer?.address_l1 || 'Pampatar'}</p>
+              <p>{dict?.footer?.address_l2 || 'Isla de Margarita, Venezuela'}</p>
             </address>
 
             {/* Social Links */}
             <div className="flex items-center gap-6">
-              <a href="mailto:hello@onwe.com" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Email">
+              <a href="mailto:info@onwe.codes" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Email">
                 <Mail className="w-6 h-6" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/onwe.code/" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Instagram">
                 <InstagramIcon className="w-5 h-5" />
               </a>
               <a href="#" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="X (Twitter)">
