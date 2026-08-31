@@ -269,19 +269,20 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
+                className="shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden mix-blend-screen group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
                 alt="Onwe Dashboard Concept" 
                 fill 
                 draggable={false}
+                priority={i < 3}
                 className="object-cover transition-transform duration-700 md:group-hover:scale-105 pointer-events-none select-none" 
                 sizes="(max-width: 768px) 240px, 400px" 
               />
               {/* Glass Hover Overlay */}
               <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
-                <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
+                <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-transparent shadow-[0_0_20px_rgba(0,255,121,0.2)]">
                   Ver imagen
                 </span>
               </div>
@@ -314,18 +315,19 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
+                className="shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden mix-blend-screen group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
                 alt="Onwe Metrics Concept" 
                 fill 
                 draggable={false}
+                priority={i < 3}
                 className="object-cover transition-transform duration-700 md:group-hover:scale-105 pointer-events-none select-none" 
                 sizes="(max-width: 768px) 260px, 420px" 
               />
               <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
-                <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
+                <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-transparent shadow-[0_0_20px_rgba(0,255,121,0.2)]">
                   Ver imagen
                 </span>
               </div>

@@ -34,32 +34,39 @@ export default function Magnet({
     const magnetElement = magnetRef.current;
     if (!magnetElement) return;
 
+    let rafId: number | null = null;
+
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = magnetElement.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
+      if (rafId) return;
 
-      const distX = Math.abs(centerX - clientX);
-      const distY = Math.abs(centerY - clientY);
+      rafId = requestAnimationFrame(() => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = magnetElement.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
 
-      if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        gsap.to(magnetElement, {
-          x: (clientX - centerX) / magnetStrength,
-          y: (clientY - centerY) / magnetStrength,
-          duration: 0.8,
-          ease: activeTransition,
-          overwrite: true,
-        });
-      } else {
-        gsap.to(magnetElement, {
-          x: 0,
-          y: 0,
-          duration: 1,
-          ease: inactiveTransition,
-          overwrite: true,
-        });
-      }
+        const distX = Math.abs(centerX - clientX);
+        const distY = Math.abs(centerY - clientY);
+
+        if (distX < width / 2 + padding && distY < height / 2 + padding) {
+          gsap.to(magnetElement, {
+            x: (clientX - centerX) / magnetStrength,
+            y: (clientY - centerY) / magnetStrength,
+            duration: 0.8,
+            ease: activeTransition,
+            overwrite: true,
+          });
+        } else {
+          gsap.to(magnetElement, {
+            x: 0,
+            y: 0,
+            duration: 1,
+            ease: inactiveTransition,
+            overwrite: true,
+          });
+        }
+        rafId = null;
+      });
     };
 
     const handleMouseLeave = () => {
@@ -78,6 +85,7 @@ export default function Magnet({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       magnetElement.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafId) cancelAnimationFrame(rafId);
       gsap.killTweensOf(magnetElement);
     };
   }, [disabled, padding, magnetStrength, activeTransition, inactiveTransition]);
