@@ -117,7 +117,7 @@ export default function Hero({ dict }: HeroProps) {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-[90vh] w-full flex flex-col justify-center pt-24 pb-12 sm:pt-30 sm:pb-16"
+      className="relative min-h-[90vh] w-full flex flex-col justify-center pt-35 pb-12 sm:pt-30 sm:pb-16"
     >
       {/* Main Hero Content Area */}
       <div
