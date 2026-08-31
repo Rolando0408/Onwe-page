@@ -41,8 +41,25 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
 
   // JS Marquee auto-scroll loop
   useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     let animationFrameId: number;
     let lastTime = performance.now();
+    
+    // Cache widths to prevent Layout Thrashing on every frame
+    let W1 = 0;
+    let W2 = 0;
+    
+    const updateWidths = () => {
+      if (row1Ref.current) W1 = row1Ref.current.scrollWidth / 3;
+      if (row2Ref.current) W2 = row2Ref.current.scrollWidth / 3;
+    };
+    
+    // Initial calculation and listener for window resize
+    updateWidths();
+    window.addEventListener('resize', updateWidths);
     
     const loop = (time: number) => {
       const deltaTime = time - lastTime;
@@ -53,18 +70,16 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       
       if (row1Ref.current && !isInteracting.current.row1) {
         row1Ref.current.scrollLeft += speed;
-        const W1 = row1Ref.current.scrollWidth / 3;
         // Jump back seamlessly when scrolled past a full set
-        if (row1Ref.current.scrollLeft >= W1 * 2) {
+        if (W1 > 0 && row1Ref.current.scrollLeft >= W1 * 2) {
           row1Ref.current.scrollLeft -= W1;
         }
       }
       
       if (row2Ref.current && !isInteracting.current.row2) {
         row2Ref.current.scrollLeft -= speed;
-        const W2 = row2Ref.current.scrollWidth / 3;
         // Jump forward seamlessly when hitting the start
-        if (row2Ref.current.scrollLeft <= 0) {
+        if (W2 > 0 && row2Ref.current.scrollLeft <= 0) {
           row2Ref.current.scrollLeft += W2;
         }
       }
@@ -72,7 +87,10 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
     };
     
     animationFrameId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', updateWidths);
+    };
   }, []);
 
   // Cerrar el lightbox con la tecla Escape
@@ -152,11 +170,20 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
             {marqueeItems.map((src, i) => (
               <div 
                 key={`r1-${i}`} 
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedImage(src);
+                    isInteracting.current = { row1: false, row2: false };
+                  }
+                }}
                 onClick={() => {
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="cursor-pointer shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
+                className="cursor-pointer shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
@@ -189,11 +216,20 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
             {marqueeItems.map((src, i) => (
               <div 
                 key={`r2-${i}`} 
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedImage(src);
+                    isInteracting.current = { row1: false, row2: false };
+                  }
+                }}
                 onClick={() => {
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="cursor-pointer shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
+                className="cursor-pointer shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
@@ -260,6 +296,7 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
                 fill
                 className="object-contain"
                 sizes="100vw"
+                priority
               />
             </div>
           </div>
