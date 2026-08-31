@@ -39,11 +39,11 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
   const row2Ref = useRef<HTMLDivElement>(null);
   const isInteracting = useRef({ row1: false, row2: false });
 
-  // JS Marquee auto-scroll loop
+  // JS Marquee auto-scroll and custom JS drag engine
+  const hasDragged = useRef(false);
+
   useEffect(() => {
-    // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
 
     let animationFrameId: number;
     let lastTime = performance.now();
@@ -57,7 +57,6 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       if (row2Ref.current) W2 = row2Ref.current.scrollWidth / 3;
     };
     
-    // Initial calculation and listener for window resize
     updateWidths();
     window.addEventListener('resize', updateWidths);
     
@@ -65,20 +64,17 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       const deltaTime = time - lastTime;
       lastTime = time;
       
-      // Approx 1px per frame at 60fps
-      const speed = (deltaTime * 60) / 1000;
+      const speed = prefersReducedMotion ? 0 : (deltaTime * 60) / 1000;
       
-      if (row1Ref.current && !isInteracting.current.row1) {
+      if (row1Ref.current && !isInteracting.current.row1 && speed > 0) {
         row1Ref.current.scrollLeft += speed;
-        // Jump back seamlessly when scrolled past a full set
-        if (W1 > 0 && row1Ref.current.scrollLeft >= W1 * 2) {
+        if (W1 > 0 && row1Ref.current.scrollLeft >= W1) {
           row1Ref.current.scrollLeft -= W1;
         }
       }
       
-      if (row2Ref.current && !isInteracting.current.row2) {
+      if (row2Ref.current && !isInteracting.current.row2 && speed > 0) {
         row2Ref.current.scrollLeft -= speed;
-        // Jump forward seamlessly when hitting the start
         if (W2 > 0 && row2Ref.current.scrollLeft <= 0) {
           row2Ref.current.scrollLeft += W2;
         }
@@ -86,30 +82,126 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       animationFrameId = requestAnimationFrame(loop);
     };
     
+    // Start the auto-scroll loop
     animationFrameId = requestAnimationFrame(loop);
+
+    // Custom Drag Engine
+    let isDragging1 = false;
+    let startX1 = 0;
+    let startScrollLeft1 = 0;
+
+    let isDragging2 = false;
+    let startX2 = 0;
+    let startScrollLeft2 = 0;
+
+    const r1 = row1Ref.current;
+    const r2 = row2Ref.current;
+
+    // Row 1 Handlers
+    const onDown1 = (e: PointerEvent) => {
+      isDragging1 = true;
+      isInteracting.current.row1 = true;
+      hasDragged.current = false;
+      startX1 = e.clientX;
+      startScrollLeft1 = r1 ? r1.scrollLeft : 0;
+      if (r1) r1.setPointerCapture(e.pointerId);
+    };
+    const onMove1 = (e: PointerEvent) => {
+      if (!isDragging1 || !r1) return;
+      const dx = e.clientX - startX1;
+      if (Math.abs(dx) > 5) hasDragged.current = true;
+      r1.scrollLeft = startScrollLeft1 - dx;
+      
+      if (W1 > 0 && r1.scrollLeft >= W1) {
+        r1.scrollLeft -= W1;
+        startScrollLeft1 -= W1;
+      } else if (W1 > 0 && r1.scrollLeft <= 0) {
+        r1.scrollLeft += W1;
+        startScrollLeft1 += W1;
+      }
+    };
+    const onUp1 = (e: PointerEvent) => {
+      isDragging1 = false;
+      isInteracting.current.row1 = false;
+      if (r1) r1.releasePointerCapture(e.pointerId);
+    };
+
+    // Row 2 Handlers
+    const onDown2 = (e: PointerEvent) => {
+      isDragging2 = true;
+      isInteracting.current.row2 = true;
+      hasDragged.current = false;
+      startX2 = e.clientX;
+      startScrollLeft2 = r2 ? r2.scrollLeft : 0;
+      if (r2) r2.setPointerCapture(e.pointerId);
+    };
+    const onMove2 = (e: PointerEvent) => {
+      if (!isDragging2 || !r2) return;
+      const dx = e.clientX - startX2;
+      if (Math.abs(dx) > 5) hasDragged.current = true;
+      r2.scrollLeft = startScrollLeft2 - dx;
+      
+      if (W2 > 0 && r2.scrollLeft <= 0) {
+        r2.scrollLeft += W2;
+        startScrollLeft2 += W2;
+      } else if (W2 > 0 && r2.scrollLeft >= W2) {
+        r2.scrollLeft -= W2;
+        startScrollLeft2 -= W2;
+      }
+    };
+    const onUp2 = (e: PointerEvent) => {
+      isDragging2 = false;
+      isInteracting.current.row2 = false;
+      if (r2) r2.releasePointerCapture(e.pointerId);
+    };
+
+    if (r1) {
+      r1.addEventListener('pointerdown', onDown1);
+      r1.addEventListener('pointermove', onMove1);
+      r1.addEventListener('pointerup', onUp1);
+      r1.addEventListener('pointercancel', onUp1);
+    }
+    if (r2) {
+      r2.addEventListener('pointerdown', onDown2);
+      r2.addEventListener('pointermove', onMove2);
+      r2.addEventListener('pointerup', onUp2);
+      r2.addEventListener('pointercancel', onUp2);
+    }
+
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', updateWidths);
+      if (r1) {
+        r1.removeEventListener('pointerdown', onDown1);
+        r1.removeEventListener('pointermove', onMove1);
+        r1.removeEventListener('pointerup', onUp1);
+        r1.removeEventListener('pointercancel', onUp1);
+      }
+      if (r2) {
+        r2.removeEventListener('pointerdown', onDown2);
+        r2.removeEventListener('pointermove', onMove2);
+        r2.removeEventListener('pointerup', onUp2);
+        r2.removeEventListener('pointercancel', onUp2);
+      }
     };
   }, []);
 
   // Cerrar el lightbox con la tecla Escape
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedImage(null);
-        setScale(1);
         isInteracting.current = { row1: false, row2: false };
       }
     };
-    if (selectedImage) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImage]);
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  // Duplicate items 3 times for a completely seamless infinite loop
+  const marqueeItems = [...images, ...images, ...images];
 
   useGSAP(() => {
-    // Smooth fade up and in when scrolled into view
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, y: 150 },
@@ -134,7 +226,6 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       className="relative w-full py-24 lg:py-20 overflow-hidden bg-transparent"
       style={{ perspective: '1500px' }}
     >
-      {/* Title above the carousel */}
       <div className="container mx-auto px-6 lg:px-12 relative z-30 mb-20 text-center">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 font-symora">
           {dict?.bentoMarquee?.title || 'El Ecosistema Onwe'}
@@ -144,11 +235,8 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
         </p>
       </div>
 
-      {/* Background ambient glow behind the grid */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#00ff79]/10 blur-[120px] rounded-[100%] pointer-events-none z-0" />
       
-      {/* 3D Tilted Grid Container */}
-      {/* rotateX creates the falling back 3D effect. rotateZ tilts it sideways. */}
       <div 
         className="relative z-10 w-[130vw] -ml-[15vw] flex flex-col gap-6 origin-center"
         style={{
@@ -160,11 +248,8 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
         {/* Row 1: Moves Left */}
         <div 
           ref={row1Ref}
-          onMouseEnter={() => { isInteracting.current.row1 = true; }}
-          onMouseLeave={() => { isInteracting.current.row1 = false; }}
-          onTouchStart={() => { isInteracting.current.row1 = true; }}
-          onTouchEnd={() => { isInteracting.current.row1 = false; }}
-          className="w-full overflow-x-auto overflow-y-hidden no-scrollbar cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+          className="w-full overflow-hidden no-scrollbar cursor-grab active:cursor-grabbing select-none"
+          style={{ touchAction: 'pan-y' }}
         >
           <div className="flex w-max gap-6 px-4">
             {marqueeItems.map((src, i) => (
@@ -179,23 +264,25 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
                     isInteracting.current = { row1: false, row2: false };
                   }
                 }}
-                onClick={() => {
+                onClick={(e) => {
+                  if (hasDragged.current) { e.preventDefault(); return; }
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="cursor-pointer shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
+                className="shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
                 alt="Onwe Dashboard Concept" 
                 fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                draggable={false}
+                className="object-cover transition-transform duration-700 md:group-hover:scale-105 pointer-events-none select-none" 
                 sizes="(max-width: 768px) 240px, 400px" 
               />
               {/* Glass Hover Overlay */}
-              <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                 <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
-                  Explorar Caso
+                  Ver imagen
                 </span>
               </div>
             </div>
@@ -206,11 +293,8 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
         {/* Row 2: Moves Right (reverse) */}
         <div 
           ref={row2Ref}
-          onMouseEnter={() => { isInteracting.current.row2 = true; }}
-          onMouseLeave={() => { isInteracting.current.row2 = false; }}
-          onTouchStart={() => { isInteracting.current.row2 = true; }}
-          onTouchEnd={() => { isInteracting.current.row2 = false; }}
-          className="w-full overflow-x-auto overflow-y-hidden no-scrollbar cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+          className="w-full overflow-hidden no-scrollbar cursor-grab active:cursor-grabbing select-none"
+          style={{ touchAction: 'pan-y' }}
         >
           <div className="flex w-max gap-6 px-4 -ml-[15vw]">
             {marqueeItems.map((src, i) => (
@@ -225,22 +309,24 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
                     isInteracting.current = { row1: false, row2: false };
                   }
                 }}
-                onClick={() => {
+                onClick={(e) => {
+                  if (hasDragged.current) { e.preventDefault(); return; }
                   setSelectedImage(src);
                   isInteracting.current = { row1: false, row2: false };
                 }}
-                className="cursor-pointer shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
+                className="shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] focus-visible:ring-offset-2 focus-visible:ring-offset-[#031510]"
               >
               <Image 
                 src={src} 
                 alt="Onwe Metrics Concept" 
                 fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                draggable={false}
+                className="object-cover transition-transform duration-700 md:group-hover:scale-105 pointer-events-none select-none" 
                 sizes="(max-width: 768px) 260px, 420px" 
               />
-              <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                 <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
-                  Ver Métricas
+                  Ver imagen
                 </span>
               </div>
             </div>
