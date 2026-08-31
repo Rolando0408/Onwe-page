@@ -26,51 +26,68 @@ export default function NarrativeTransition({ dict }: NarrativeTransitionProps) 
   const bgRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top top',
-        end: '+=200%',
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
+    const mm = gsap.matchMedia();
 
-    // 0. Darken the background gradually
-    tl.to(bgRef.current, {
-      opacity: 0.95,
-      duration: 1,
-      ease: 'power1.inOut',
-    }, 0)
-    // 1. Draw the strikethrough line over the problem
-    .to(problemRef.current, {
-      clipPath: 'inset(0 0% 0 0)',
-      duration: 1,
-      ease: 'power2.inOut',
-    }, 0)
-    // 2. Dim the problem text slightly
-    .to([baseTextRef.current, problemRef.current], {
-      opacity: 0.3,
-      duration: 0.5,
-    }, "<0.5")
-    // 3. Reveal the solution text from below
-    .fromTo(solutionRef.current, {
-      y: 50,
-      opacity: 0,
-    }, {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: 'power3.out',
-    })
-    // 4. Fade out the background just before unpinning to avoid a hard edge
-    .to(bgRef.current, {
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power2.inOut',
+    mm.add({
+      // Desktop: scrubbed pin
+      desktop: "(min-width: 768px)",
+      // Mobile: autoplay when in view, no pin
+      mobile: "(max-width: 767px)"
+    }, (context) => {
+      const { desktop } = context.conditions as { desktop: boolean; mobile: boolean };
+      
+      const tl = gsap.timeline({
+        scrollTrigger: desktop ? {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=200%',
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        } : {
+          trigger: containerRef.current,
+          start: 'top 50%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      // 0. Darken the background gradually
+      tl.to(bgRef.current, {
+        opacity: 0.95,
+        duration: 1,
+        ease: 'power1.inOut',
+      }, 0)
+      // 1. Draw the strikethrough line over the problem
+      .to(problemRef.current, {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 1,
+        ease: 'power2.inOut',
+      }, 0)
+      // 2. Dim the problem text slightly
+      .to([baseTextRef.current, problemRef.current], {
+        opacity: 0.3,
+        duration: 0.5,
+      }, "<0.5")
+      // 3. Reveal the solution text from below
+      .fromTo(solutionRef.current, {
+        y: 50,
+        opacity: 0,
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+      });
+
+      // 4. Fade out the background just before unpinning to avoid a hard edge
+      // Only necessary if it's scrubbing, but keeping it smooth for both
+      tl.to(bgRef.current, {
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.inOut',
+      });
     });
 
   }, { scope: containerRef });
@@ -80,8 +97,15 @@ export default function NarrativeTransition({ dict }: NarrativeTransitionProps) 
       ref={containerRef} 
       className="relative h-screen w-full flex items-center justify-center bg-transparent"
     >
-      {/* Darkening Overlay */}
-      <div ref={bgRef} className="absolute inset-0 bg-[#031c17] z-0 opacity-0 pointer-events-none" />
+      {/* Darkening Overlay with faded top and bottom edges to avoid sharp cuts */}
+      <div 
+        ref={bgRef} 
+        className="absolute inset-0 bg-[#031c17] z-0 opacity-0 pointer-events-none" 
+        style={{
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+        }}
+      />
       
       <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col items-center justify-center text-center max-w-5xl h-full">
         {/* Problem State */}

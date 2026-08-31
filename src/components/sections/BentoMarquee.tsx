@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -12,10 +13,9 @@ if (typeof window !== 'undefined') {
 
 // These are the AI-generated Onwe aesthetic images
 const images = [
-  '/images/onwe_brand_1_1787769973320.jpg',
-  '/images/onwe_brand_2_1787769983535.jpg',
-  '/images/onwe_brand_3_1787769993023.jpg',
-  '/images/onwe_brand_4_1787770003399.jpg',
+  '/images/IMG_8654.JPG',
+  '/images/IMG_8655.JPG',
+  '/images/IMG_8656.JPG',
 ];
 
 // Triplicate the array so the marquee can scroll 50% seamlessly
@@ -32,6 +32,63 @@ interface BentoMarqueeProps {
 
 export default function BentoMarquee({ dict }: BentoMarqueeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [scale, setScale] = useState(1);
+
+  const row1Ref = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
+  const isInteracting = useRef({ row1: false, row2: false });
+
+  // JS Marquee auto-scroll loop
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastTime = performance.now();
+    
+    const loop = (time: number) => {
+      const deltaTime = time - lastTime;
+      lastTime = time;
+      
+      // Approx 1px per frame at 60fps
+      const speed = (deltaTime * 60) / 1000;
+      
+      if (row1Ref.current && !isInteracting.current.row1) {
+        row1Ref.current.scrollLeft += speed;
+        const W1 = row1Ref.current.scrollWidth / 3;
+        // Jump back seamlessly when scrolled past a full set
+        if (row1Ref.current.scrollLeft >= W1 * 2) {
+          row1Ref.current.scrollLeft -= W1;
+        }
+      }
+      
+      if (row2Ref.current && !isInteracting.current.row2) {
+        row2Ref.current.scrollLeft -= speed;
+        const W2 = row2Ref.current.scrollWidth / 3;
+        // Jump forward seamlessly when hitting the start
+        if (row2Ref.current.scrollLeft <= 0) {
+          row2Ref.current.scrollLeft += W2;
+        }
+      }
+      animationFrameId = requestAnimationFrame(loop);
+    };
+    
+    animationFrameId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  // Cerrar el lightbox con la tecla Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+        setScale(1);
+        isInteracting.current = { row1: false, row2: false };
+      }
+    };
+    if (selectedImage) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage]);
 
   useGSAP(() => {
     // Smooth fade up and in when scrolled into view
@@ -83,19 +140,30 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
       >
         
         {/* Row 1: Moves Left */}
-        {/* We use animate-[marquee_X] which is defined in globals.css */}
-        <div className="flex w-max gap-6 animate-[marquee_45s_linear_infinite]">
-          {marqueeItems.map((src, i) => (
-            <div 
-              key={`r1-${i}`} 
-              className="relative w-[300px] sm:w-[400px] md:w-[500px] aspect-[16/9] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
-            >
+        <div 
+          ref={row1Ref}
+          onMouseEnter={() => { isInteracting.current.row1 = true; }}
+          onMouseLeave={() => { isInteracting.current.row1 = false; }}
+          onTouchStart={() => { isInteracting.current.row1 = true; }}
+          onTouchEnd={() => { isInteracting.current.row1 = false; }}
+          className="w-full overflow-x-auto overflow-y-hidden no-scrollbar cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex w-max gap-6 px-4">
+            {marqueeItems.map((src, i) => (
+              <div 
+                key={`r1-${i}`} 
+                onClick={() => {
+                  setSelectedImage(src);
+                  isInteracting.current = { row1: false, row2: false };
+                }}
+                className="cursor-pointer shrink-0 relative w-[240px] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
+              >
               <Image 
                 src={src} 
                 alt="Onwe Dashboard Concept" 
                 fill 
                 className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                sizes="(max-width: 768px) 300px, 500px" 
+                sizes="(max-width: 768px) 240px, 400px" 
               />
               {/* Glass Hover Overlay */}
               <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
@@ -105,22 +173,34 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {/* Row 2: Moves Right (reverse) */}
-        {/* Negative margin to offset the starting position compared to Row 1 */}
-        <div className="flex w-max gap-6 animate-[marquee_55s_linear_infinite_reverse] -ml-[25vw]">
-          {marqueeItems.map((src, i) => (
-            <div 
-              key={`r2-${i}`} 
-              className="relative w-[350px] sm:w-[450px] md:w-[550px] aspect-[21/9] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
-            >
+        <div 
+          ref={row2Ref}
+          onMouseEnter={() => { isInteracting.current.row2 = true; }}
+          onMouseLeave={() => { isInteracting.current.row2 = false; }}
+          onTouchStart={() => { isInteracting.current.row2 = true; }}
+          onTouchEnd={() => { isInteracting.current.row2 = false; }}
+          className="w-full overflow-x-auto overflow-y-hidden no-scrollbar cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex w-max gap-6 px-4 -ml-[15vw]">
+            {marqueeItems.map((src, i) => (
+              <div 
+                key={`r2-${i}`} 
+                onClick={() => {
+                  setSelectedImage(src);
+                  isInteracting.current = { row1: false, row2: false };
+                }}
+                className="cursor-pointer shrink-0 relative w-[260px] sm:w-[340px] md:w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
+              >
               <Image 
                 src={src} 
                 alt="Onwe Metrics Concept" 
                 fill 
                 className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                sizes="(max-width: 768px) 350px, 550px" 
+                sizes="(max-width: 768px) 260px, 420px" 
               />
               <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
                 <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
@@ -129,31 +209,63 @@ export default function BentoMarquee({ dict }: BentoMarqueeProps) {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Row 3: Moves Left (different speed/width to break uniformity) */}
-        <div className="flex w-max gap-6 animate-[marquee_40s_linear_infinite] ml-[5vw]">
-          {marqueeItems.map((src, i) => (
-            <div 
-              key={`r3-${i}`} 
-              className="relative w-[280px] sm:w-[380px] md:w-[480px] aspect-[16/9] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 bg-[#031510] group"
-            >
-              <Image 
-                src={src} 
-                alt="Onwe Platform Concept" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                sizes="(max-width: 768px) 280px, 480px" 
-              />
-              <div className="absolute inset-0 bg-[#031c17]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                <span className="px-6 py-2 rounded-full border border-[#00ff79]/50 text-white font-medium text-sm bg-[#031c17]/80 shadow-[0_0_20px_rgba(0,255,121,0.2)]">
-                  Análisis Predictivo
-                </span>
-              </div>
-            </div>
-          ))}
+          </div>
         </div>
       </div>
+
+      {/* Lightbox Modal rendered via Portal to escape 3D container context */}
+      {selectedImage && typeof document !== 'undefined' && createPortal(
+        <div 
+          className="fixed inset-0 z-[9999] bg-[#031510]/95 backdrop-blur-md overflow-auto transition-opacity no-scrollbar [&::-webkit-scrollbar]:hidden"
+          onClick={() => { 
+            setSelectedImage(null); 
+            setScale(1); 
+            isInteracting.current = { row1: false, row2: false };
+          }}
+        >
+          <div className={`min-h-[100vh] min-w-[100vw] flex justify-center p-4 sm:p-8 ${scale > 1 ? 'items-start' : 'items-center'}`}>
+            {/* Botón Cerrar */}
+            <button 
+              className="fixed top-6 right-6 z-[10000] text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-lg transition-all shadow-md"
+              onClick={() => { 
+                setSelectedImage(null); 
+                setScale(1); 
+                isInteracting.current = { row1: false, row2: false };
+              }}
+              aria-label="Cerrar imagen"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            
+            {/* Contenedor de la Imagen con Zoom */}
+            <div 
+              className="relative rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(0,255,121,0.15)] transition-all duration-300 ease-out m-auto aspect-[4/5]"
+              style={{
+                width: scale > 1 ? '150vw' : '100%',
+                maxHeight: scale > 1 ? 'none' : '90vh',
+                maxWidth: scale > 1 ? 'none' : '1024px',
+                cursor: scale > 1 ? 'zoom-out' : 'zoom-in'
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setScale(s => s === 1 ? 2 : 1);
+              }}
+            >
+              <Image 
+                src={selectedImage}
+                alt="Vista ampliada"
+                fill
+                className="object-contain"
+                sizes="100vw"
+              />
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </section>
   );
 }

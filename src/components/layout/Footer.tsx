@@ -52,7 +52,6 @@ export default function Footer({ dict }: FooterProps) {
 
             {/* Address */}
             <address className="not-italic text-slate-300 font-medium mb-12 space-y-1">
-              <p>{dict?.footer?.address_l1 || 'Pampatar'}</p>
               <p>{dict?.footer?.address_l2 || 'Isla de Margarita, Venezuela'}</p>
             </address>
 
@@ -64,23 +63,14 @@ export default function Footer({ dict }: FooterProps) {
               <a href="https://www.instagram.com/onwe.code/" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="Instagram">
                 <InstagramIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#00ff79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded-md p-1 transition-colors" aria-label="X (Twitter)">
-                <XIcon className="w-5 h-5" />
-              </a>
             </div>
           </div>
 
           {/* Bottom Section (Legal) */}
           <div className="mt-20 pt-8 border-t border-white/5 flex flex-wrap gap-6 sm:gap-10 text-sm text-slate-500">
-            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
-              {dict?.footer?.legal?.imprint || 'Aviso Legal'}
-            </Link>
-            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
-              {dict?.footer?.legal?.privacy || 'Privacidad'}
-            </Link>
-            <Link href="#" className="hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff79] rounded transition-colors">
-              {dict?.footer?.legal?.terms || 'Términos y Condiciones'}
-            </Link>
+            <p>
+              &copy; {new Date().getFullYear()} Onwe. Todos los derechos reservados.
+            </p>
           </div>
         </div>
       </div>
