@@ -15,8 +15,11 @@ const symora = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Onwe - Landing Page",
+  title: "Onwe-Always on.",
   description: "Digitaliza tus procesos con Onwe",
+  icons: {
+    icon: "/logos/icon-square.svg",
+  },
 };
 
 export default function RootLayout({

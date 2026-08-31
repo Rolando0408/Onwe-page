@@ -34,15 +34,6 @@ export default function Magnet({
     const magnetElement = magnetRef.current;
     if (!magnetElement) return;
 
-    const xTo = gsap.quickTo(magnetElement, 'x', {
-      duration: 0.8,
-      ease: activeTransition,
-    });
-    const yTo = gsap.quickTo(magnetElement, 'y', {
-      duration: 0.8,
-      ease: activeTransition,
-    });
-
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       const { left, top, width, height } = magnetElement.getBoundingClientRect();
@@ -53,15 +44,20 @@ export default function Magnet({
       const distY = Math.abs(centerY - clientY);
 
       if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        xTo((clientX - centerX) / magnetStrength);
-        yTo((clientY - centerY) / magnetStrength);
+        gsap.to(magnetElement, {
+          x: (clientX - centerX) / magnetStrength,
+          y: (clientY - centerY) / magnetStrength,
+          duration: 0.8,
+          ease: activeTransition,
+          overwrite: true,
+        });
       } else {
         gsap.to(magnetElement, {
           x: 0,
           y: 0,
           duration: 1,
           ease: inactiveTransition,
-          overwrite: 'auto',
+          overwrite: true,
         });
       }
     };
@@ -72,7 +68,7 @@ export default function Magnet({
         y: 0,
         duration: 1,
         ease: inactiveTransition,
-        overwrite: 'auto',
+        overwrite: true,
       });
     };
 
@@ -89,7 +85,7 @@ export default function Magnet({
   return (
     <div
       ref={magnetRef}
-      className={`inline-block transition-transform will-change-transform ${wrapperClassName}`}
+      className={`inline-block will-change-transform ${wrapperClassName}`}
       onClick={onClick}
     >
       <div className={innerClassName}>{children}</div>

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ArrowRight, Search } from 'lucide-react';
-import Magnet from '@/components/ui/Magnet';
 import LaptopMockup from '@/components/ui/LaptopMockup';
 
 if (typeof window !== 'undefined') {
@@ -146,19 +145,17 @@ export default function Hero({ dict }: HeroProps) {
 
           {/* Action CTAs */}
           <div className="hero-interactive flex flex-wrap items-center gap-4">
-            <Magnet magnetStrength={3} padding={50}>
-              <Link
-                href="#contact"
-                onClick={(e) => scrollToSection(e, '#contact')}
-                className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] rounded-full shadow-[0_0_20px_rgba(0,255,121,0.4)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] focus-visible:ring-2 focus-visible:ring-white transition-all duration-300 active:scale-95 cursor-pointer"
-              >
-                {/* Shine Sweep Effect */}
-                <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
-                
-                <span className="relative z-10">{dict.hero.cta_primary}</span>
-                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Magnet>
+            <Link
+              href="#contact"
+              onClick={(e) => scrollToSection(e, '#contact')}
+              className="relative group overflow-hidden inline-flex items-center gap-2.5 px-8 py-4 text-base font-bold text-[#010907] bg-[#00ff79] hover:bg-[#00e06a] rounded-full shadow-[0_0_20px_rgba(0,255,121,0.4)] hover:shadow-[0_0_40px_rgba(0,255,121,0.6)] focus-visible:ring-2 focus-visible:ring-white transition-all duration-300 active:scale-95 cursor-pointer"
+            >
+              {/* Shine Sweep Effect */}
+              <span className="absolute top-0 -left-full w-full h-full skew-x-[-35deg] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out pointer-events-none z-0" />
+              
+              <span className="relative z-10">{dict.hero.cta_primary}</span>
+              <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
 
             <Link
               href="#services"
