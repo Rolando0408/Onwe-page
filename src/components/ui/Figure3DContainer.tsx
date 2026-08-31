@@ -34,6 +34,7 @@ const GlassShape3D = ({ shapeType, colorHex, transmission = 1, glassOpacity = 1 
         {shapeType === 'octahedron' && <octahedronGeometry args={[1.5, 0]} />}
         <MeshTransmissionMaterial 
           backside
+          resolution={256}
           thickness={finalThickness}
           roughness={finalRoughness}
           transmission={finalTransmission}
@@ -151,7 +152,7 @@ export default function Figure3DContainer({ shapeType, colorHex, glowColor, glow
       />
       
       <div className="canvas-wrapper relative w-full h-full z-10 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }} gl={{ alpha: true }}>
+        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5.5], fov: 45 }} gl={{ alpha: true }}>
           <ambientLight intensity={0.8} />
           <directionalLight position={[10, 10, 5]} intensity={2} color={colorHex} />
           <directionalLight position={[-10, -10, -5]} intensity={1} color="#ffffff" />
