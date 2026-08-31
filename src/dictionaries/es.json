@@ -98,10 +98,16 @@
   },
   "about": {
     "mission_title": "Nuestra Misión",
+    "mission_h2_p1": "Diseñamos el",
+    "mission_h2_hl": "presente.",
     "mission_desc": "Impulsar la transformación digital de empresas mediante arquitecturas de software escalables, código limpio y experiencias de usuario inmersivas. Construimos herramientas tecnológicas que resuelven problemas complejos con elegancia y rendimiento absoluto.",
     "vision_title": "Nuestra Visión",
+    "vision_h2_p1": "Construimos el",
+    "vision_h2_hl": "futuro.",
     "vision_desc": "Convertirnos en el estándar de excelencia para el desarrollo de productos digitales B2B en Latinoamérica, liderando la transición hacia ecosistemas tecnológicos donde el diseño excepcional y la ingeniería robusta sean indivisibles.",
     "values_title": "Nuestros Valores",
+    "values_h2_p1": "Lo que nos",
+    "values_h2_hl": "define.",
     "values": [
       {
         "title": "Innovación Tecnológica",

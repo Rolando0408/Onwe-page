@@ -179,7 +179,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
     <section 
       id="why-onwe" 
       ref={containerRef}
-      className="relative w-full min-h-screen py-8 lg:py-12 flex flex-col justify-center items-center overflow-hidden bg-transparent border-t border-emerald-500/10"
+      className="relative w-full min-h-screen py-8 lg:py-12 flex flex-col justify-center items-center overflow-hidden bg-transparent"
     >
       <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col items-center">
         
@@ -247,7 +247,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
               return (
                 <div 
                   key={idx}
-                  className={`circuit-card-wrapper absolute w-[340px] z-10 ${cardPositions[idx]}`}
+                  className={`circuit-card-wrapper absolute w-[400px] z-10 ${cardPositions[idx]}`}
                 >
                   <div 
                     className={`circuit-card-${idx} w-full p-8 rounded-3xl bg-[#031c17]/40 backdrop-blur-2xl border-2 cursor-pointer transition-all duration-300 ease-out transform hover:scale-105 hover:bg-[#031c17]/60 hover:shadow-[0_0_55px_rgba(0,255,121,0.6)]`}
@@ -260,7 +260,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
                         </div>
                         <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
                       </div>
-                      <p className="text-slate-300 leading-relaxed text-sm">
+                      <p className="text-slate-300 leading-relaxed text-md">
                         {item.desc}
                       </p>
                     </div>

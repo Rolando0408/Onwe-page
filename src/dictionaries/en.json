@@ -98,10 +98,16 @@
   },
   "about": {
     "mission_title": "Our Mission",
+    "mission_h2_p1": "We design the",
+    "mission_h2_hl": "present.",
     "mission_desc": "To drive the digital transformation of businesses through scalable software architectures, clean code, and immersive user experiences. We build technological tools that solve complex problems with elegance and absolute performance.",
     "vision_title": "Our Vision",
+    "vision_h2_p1": "We build the",
+    "vision_h2_hl": "future.",
     "vision_desc": "To become the gold standard for B2B digital product development in Latin America, leading the transition toward technological ecosystems where exceptional design and robust engineering are inseparable.",
     "values_title": "Our Values",
+    "values_h2_p1": "What",
+    "values_h2_hl": "defines us.",
     "values": [
       {
         "title": "Technological Innovation",
