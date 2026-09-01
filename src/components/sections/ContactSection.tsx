@@ -155,7 +155,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                       required
                       disabled={isSubmitted || isSubmitting}
                       className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
-                      placeholder="John Doe"
+                      placeholder="Tu Nombre"
                     />
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export default function ContactSection({ dict }: ContactSectionProps) {
                     required
                     disabled={isSubmitted || isSubmitting}
                     className="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00ff79]/50 focus:ring-1 focus:ring-[#00ff79]/50 focus-visible:ring-2 focus-visible:ring-[#00ff79] transition-all shadow-inner disabled:opacity-50"
-                    placeholder="john@example.com"
+                    placeholder="johntu.correo@example.com"
                   />
                 </div>
 
