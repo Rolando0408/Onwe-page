@@ -14,6 +14,8 @@ const symora = localFont({
   variable: "--font-symora",
 });
 
+import SmoothScroll from "@/components/providers/SmoothScroll";
+
 export const metadata: Metadata = {
   title: "Onwe-Always on.",
   description: "Digitaliza tus procesos con Onwe",
@@ -29,7 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${symora.variable} ${poppins.variable} h-full antialiased dark`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

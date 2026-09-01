@@ -40,11 +40,10 @@ export default function NarrativeTransition({ dict }: NarrativeTransitionProps) 
         scrollTrigger: desktop ? {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=200%',
+          end: '+=120%',
           pin: true,
           pinSpacing: true,
-          scrub: 1,
-          anticipatePin: 1,
+          scrub: true,
           invalidateOnRefresh: true,
         } : {
           trigger: containerRef.current,
@@ -82,7 +81,6 @@ export default function NarrativeTransition({ dict }: NarrativeTransitionProps) 
       });
 
       // 4. Fade out the background just before unpinning to avoid a hard edge
-      // Only necessary if it's scrubbing, but keeping it smooth for both
       tl.to(bgRef.current, {
         opacity: 0,
         duration: 0.8,

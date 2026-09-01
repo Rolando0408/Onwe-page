@@ -51,11 +51,11 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'center center',
-          end: '+=1000',
+          start: 'top top',
+          end: '+=800',
           pin: true,
-          scrub: 0.8,
-          anticipatePin: 1,
+          scrub: true,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -134,7 +134,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
           trigger: '.mobile-circuit-container',
           start: 'top 75%',
           end: 'bottom 50%',
-          scrub: 0.8,
+          scrub: true,
         },
       });
 
@@ -165,7 +165,7 @@ export default function WhyOnweCircuits({ dict }: WhyOnweCircuitsProps) {
               trigger: card,
               start: 'top 80%',
               end: 'top 60%',
-              scrub: 0.5,
+              scrub: true,
             },
           }
         );

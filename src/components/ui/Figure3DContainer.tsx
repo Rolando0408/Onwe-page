@@ -77,10 +77,10 @@ export default function Figure3DContainer({ shapeType, colorHex, glowColor, glow
   const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hack to fix WebGL/R3F "blank until tab switch" bug
+    // Force WebGL Canvas to re-evaluate and draw immediately on mount
     const timer1 = setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
     const timer2 = setTimeout(() => window.dispatchEvent(new Event('resize')), 500);
-    const timer3 = setTimeout(() => window.dispatchEvent(new Event('resize')), 1500);
+    const timer3 = setTimeout(() => window.dispatchEvent(new Event('resize')), 1200);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
