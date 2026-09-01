@@ -15,6 +15,7 @@ const symora = localFont({
 });
 
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Onwe-Always on.",
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="es" className={`${symora.variable} ${poppins.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col font-sans">
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
